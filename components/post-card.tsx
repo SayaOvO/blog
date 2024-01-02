@@ -11,6 +11,7 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, type }: PostCardProps) {
+  console.log("banner:", post.banner === " /post-01-banner.jpg");
   return (
     <div {...stylex.props(styles.container)}>
       <Link href={`${post.url}`}>
