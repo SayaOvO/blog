@@ -24,15 +24,17 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
     notFound();
   }
   return { 
+    // baseurl not work here
+    metadataBase: new URL("https://blog.sayya.moe"),
     title: `${post.title} | Saya`,
     description: post.description,
     keywords: post.categories.join(","),
     openGraph: {
       title: `${post.title} | Saya`,
-      url: `https://blog.sayya.moe${post.url}`,
+      url: `${post.url}`,
       description: post.description,
       images: [{
-        url: post.banner
+        url: `https://blog.sayya.moe${post.banner}`
       }]
     }
   };
