@@ -12,7 +12,7 @@ interface PostCardProps {
 
 export function PostCard({ post, type }: PostCardProps) {
   return (
-    <div {...stylex.props(styles.container)}>
+    <div {...stylex.props(styles.container, type === "front" && styles.bottomRadius)}>
       <Link href={`${post.url}`}>
         <div {...stylex.props(styles.bannerContainer)}>
           <Image
@@ -24,7 +24,7 @@ export function PostCard({ post, type }: PostCardProps) {
           />
         </div>
       </Link>
-      <article {...stylex.props(styles.content, type === "front" && styles.bottomRadius)}>
+      <article {...stylex.props(styles.content)}>
         <h2 {...stylex.props(styles.title)}>{post.title}</h2>
         {type === "front" && (
           <p {...stylex.props(styles.desc)}>{post.description}</p>
@@ -45,21 +45,21 @@ export function PostCard({ post, type }: PostCardProps) {
 const styles = stylex.create({
   container: {
     boxShadow: shadows.main,
+    backgroundColor: colors.bg1,
+    borderTopLeftRadius: spacing.xs,
+    borderTopRightRadius: spacing.xs,
   },
   banner: {
     maxWidth: "100%",
     objectFit: "cover",
     overflow: "hidden",
-    borderTopLeftRadius: spacing.xs,
-    borderTopRightRadius: spacing.xs,
   },
   bannerContainer: {
     position: "relative",
     aspectRatio: "3/1",
   },
   content: {
-    padding: "20px 12px",
-    backgroundColor: colors.bg1,
+    padding: spacing.sm
   },
   bottomRadius: {
     borderBottomLeftRadius: spacing.xs,
