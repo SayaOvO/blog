@@ -19,7 +19,7 @@ export function Nav() {
             <Link href="/friends">友链</Link>
           </li>
           <li>
-            <Link href="/atom.xml" target="_blank">订阅</Link>
+            <a href="/atom.xml" target="_blank">订阅</a>
           </li>
           <li>
             <Link href="/about">关于</Link>

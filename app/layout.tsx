@@ -3,11 +3,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import * as stylex from "@stylexjs/stylex";
 import { colors, globalTokens as $ } from "./globalTokens.stylex";
+import { meta } from "@/lib/meta";
 
-export const metadata: Metadata = {
-  title: "Saya's blog",
-  description: "Saya 的个人博客，主要记录学习中的碰到觉得有意思的技术，目前偏前端方面的知识",
-};
+export const metadata: Metadata = meta;
 
 export default function RootLayout({
   children,

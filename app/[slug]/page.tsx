@@ -13,16 +13,29 @@ import {
   spacing,
   text,
 } from "../globalTokens.stylex";
+import { Metadata } from "next";
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 
-export const generateMetadata = ({ params }: { params: { slug: string } }) => {
+export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   if (!post) {
     notFound();
   }
-  return { title: `${post.title} | Saya` };
+  return { 
+    title: `${post.title} | Saya`,
+    description: post.description,
+    keywords: post.categories.join(","),
+    openGraph: {
+      title: `${post.title} | Saya`,
+      url: `https://blog.sayya.moe${post.url}`,
+      description: post.description,
+      images: [{
+        url: post.banner
+      }]
+    }
+  };
 };
 
 export default function PostPage({ params }: { params: { slug: string } }) {

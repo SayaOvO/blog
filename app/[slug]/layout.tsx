@@ -5,6 +5,7 @@ import { allPosts } from "contentlayer/generated";
 import { Footer } from "@/components/footer";
 import { notFound } from "next/navigation";
 
+
 export default function PostPageLayout({
   params,
   children,
@@ -26,7 +27,7 @@ export default function PostPageLayout({
         <Sidebar post={post} />
         <main {...stylex.props(styles.main)}>{children}</main>
       </div>
-      <Footer isPostPage />
+      <Footer path={post.url} />
     </div>
   );
 }

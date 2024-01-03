@@ -15,9 +15,9 @@ export function GET() {
      <updated>${posts[0].date}</updated>
      <id>Saya</id>
      <link rel="alternate" type="text/html"
-      hreflang="en" href="http://example.org/"/>
+      hreflang="en" href="https://blog.sayya.moe"/>
      <link rel="self" type="application/atom+xml"
-      href="http://example.org/feed.atom"/>
+      href="https://blog.sayya.moe/atom.xml"/>
      <rights>Copyright 2023 ©Saya</rights>
      <generator>
         Next.js
@@ -33,15 +33,13 @@ export function GET() {
             <p>
               ${post.description}
             </p>
-              <span>请前往 <a>${post.url}</a> 阅读全文</span>
+              <span>请前往 <a>${`https://blog.sayya.moe${post.url}`}</a> 阅读全文</span>
             </content>
             <published>${post.date}</published>
           </entry>`
      ).join('')}
    </feed>
   `;
-
-  console.log("rss:", rss);
  
   return new NextResponse(rss, { headers });
 }

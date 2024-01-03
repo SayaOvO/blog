@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://blog.sayya.moe/sitemap.xml

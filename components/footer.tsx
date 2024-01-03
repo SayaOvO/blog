@@ -5,10 +5,12 @@ import Link from "next/link";
 import { Github, Rss } from "lucide-react";
 
 interface FooterProps {
-  isPostPage?: boolean;
+  path?: string;
 }
 
-export function Footer({ isPostPage }: FooterProps) {
+const url = `https://www.github.com/SayaOvO/blog`;
+
+export function Footer({ path }: FooterProps) {
   return (
     <footer {...stylex.props(styles.footer)}>
       <p {...stylex.props(styles.p)}>
@@ -23,25 +25,28 @@ export function Footer({ isPostPage }: FooterProps) {
           />
         </Link>
       </p>
-      {/* //TODO ADD LINK */}
       <p {...stylex.props(styles.p)}>
-        <Link href="#" {...stylex.props(styles.link)}>
+        <a 
+          href={path ? `${url}/blob/main/content${path}/index.mdx?plain=1` : url}
+          target="_blank"
+          {...stylex.props(styles.link)}
+        >
           <span {...stylex.props(styles.span)}>
-            {isPostPage
+            {path
               ? "View & edit source code of this page on"
               : "Open sourced on"}
           </span>
           <Github {...stylex.props(styles.icon)} />
           <span {...stylex.props(styles.span)}>Github</span>
-        </Link>
+        </a>
       </p>
 
       <p {...stylex.props(styles.p)}>
-        <Link href="#" {...stylex.props(styles.link)}>
+        <a href="/atom.xml" target="_blank" {...stylex.props(styles.link)}>
           <span {...stylex.props(styles.span)}>&copy;Saya 2023</span>
           <Rss {...stylex.props(styles.icon)} />
           <span {...stylex.props(styles.span)}>RSS</span>
-        </Link>
+        </a>
       </p>
     </footer>
   );
