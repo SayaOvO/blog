@@ -16,11 +16,12 @@ export function PostCard({ post, type }: PostCardProps) {
       <Link href={`${post.url}`}>
         <div {...stylex.props(styles.bannerContainer)}>
           <Image
+            priority
             src={post.banner}
             alt={post.title}
             fill
-            {...stylex.props(styles.banner)}
             sizes="50 50"
+            {...stylex.props(styles.banner)}
           />
         </div>
       </Link>

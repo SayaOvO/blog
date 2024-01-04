@@ -4,24 +4,24 @@ import { PostCard } from "@/components/post-card";
 import { sortPosts } from "@/lib/utils";
 import { Tag } from "lucide-react";
 import { useMemo } from "react";
-import { text } from "../../globalTokens.stylex"
+import { text } from "../../globalTokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 interface TagPageProps {
   params: {
     tag: string;
-  },
+  };
 }
 
-export default function TagPage({
-  params
-}: TagPageProps) {
+export default function TagPage({ params }: TagPageProps) {
   const filteredPosts = useMemo(
-    () => sortPosts(allPosts).
-    filter((post) => post.tags
-    .includes(decodeURI(params.tag))), 
+    () =>
+      sortPosts(allPosts).filter((post) =>
+        post.tags.includes(decodeURI(params.tag))
+      ),
     [params.tag]
   );
+
   return (
     <MainLayout>
       <h1 {...stylex.props(styles.h1)}>
@@ -35,7 +35,7 @@ export default function TagPage({
         ))}
       </div>
     </MainLayout>
-  )
+  );
 }
 
 const styles = stylex.create({
@@ -43,9 +43,9 @@ const styles = stylex.create({
     fontSize: text.h4,
     display: "flex",
     gap: 4,
-    alignItems: "center"
+    alignItems: "center",
   },
   h2: {
-    fontSize: text.h5
-  }
-})
+    fontSize: text.h5,
+  },
+});
