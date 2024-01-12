@@ -5,7 +5,6 @@ import { allPosts } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import { spacing } from "../globalTokens.stylex";
 
-
 export default function PostPageLayout({
   params,
   children,

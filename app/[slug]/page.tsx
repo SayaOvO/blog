@@ -15,6 +15,8 @@ import {
 } from "../globalTokens.stylex";
 import { Metadata } from "next";
 
+export const revalidate = 60;
+
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 

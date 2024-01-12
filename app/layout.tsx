@@ -4,6 +4,7 @@ import "./globals.css";
 import * as stylex from "@stylexjs/stylex";
 import { colors, globalTokens as $ } from "./globalTokens.stylex";
 import { meta } from "@/lib/meta";
+import { VistorsStats } from "@/components/vistor-stats";
 
 export const metadata: Metadata = meta;
 
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body {...stylex.props(styles.body)}>
         <Nav />
         {children}
+        <VistorsStats />
       </body>
     </html>
   );

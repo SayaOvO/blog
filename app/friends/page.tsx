@@ -1,13 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
 import { colors, spacing, text } from "../globalTokens.stylex";
-import Link from "next/link";
 import { FriendCard } from "@/components/friend-card";
 
 export default function FriendPage() {
   return (
     <main>
       <h1 {...stylex.props(styles.h1)}>Friends</h1>
-
       <div {...stylex.props(styles.cards)}>
         {new Array(8).fill(0).map((_, idx) => (
           <FriendCard

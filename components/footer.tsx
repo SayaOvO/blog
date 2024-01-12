@@ -3,21 +3,23 @@ import * as stylex from "@stylexjs/stylex";
 import { colors, spacing, text } from "../app/globalTokens.stylex";
 import Link from "next/link";
 import { Github, Rss } from "lucide-react";
-import { redis } from "@/lib/redis";
+import { Redis } from "@upstash/redis";
 
 interface FooterProps {
   path?: string;
 }
 
+const redis = Redis.fromEnv()
 const url = `https://www.github.com/SayaOvO/blog`;
 
 export async function Footer({ path }: FooterProps) {
-  let views: number;
+  let views: number | null;
   if (process.env.VERCEL_ENV === "production") {
-    views = await redis.incr("total_page_views");
+    views = await redis.get("page_views");
   } else {
     views = 2345;
   }
+
   const year = new Date().getFullYear();
   return (
     <footer {...stylex.props(styles.footer)}>
@@ -60,7 +62,7 @@ export async function Footer({ path }: FooterProps) {
           <span {...stylex.props(styles.span)}>RSS</span>
         </a>
       </p>
-      <p {...stylex.props(styles.p)}>All page views: {views}</p>
+      <p {...stylex.props(styles.p)}>All my blog visitors: {views}</p>
     </footer>
   );
 }
