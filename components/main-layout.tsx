@@ -1,11 +1,31 @@
 import * as stylex from "@stylexjs/stylex";
-import { colors, spacing } from "../app/globalTokens.stylex"
+import { spacing } from "../app/globalTokens.stylex"
 import { Sidebar } from "./sidebar";
 import { Footer } from "./footer";
 import { LatestPosts } from "./sidebar/latest-posts";
 
 interface MainLayoutProps {
   children: React.ReactNode
+}
+
+export function MainLayout({
+  children
+}: MainLayoutProps) {
+
+  return (
+    <div>
+      <div {...stylex.props(styles.container)}>
+        <Sidebar />
+        <main {...stylex.props(styles.main)}>
+          {children}
+        </main>
+        <div {...stylex.props(styles.latest)}>
+          <LatestPosts />
+        </div>
+      </div>
+      <Footer />
+    </div>
+  )
 }
 
 const styles = stylex.create({
@@ -54,23 +74,3 @@ const styles = stylex.create({
     
   }
 });
-
-export function MainLayout({
-  children
-}: MainLayoutProps) {
-
-  return (
-    <div>
-      <div {...stylex.props(styles.container)}>
-        <Sidebar />
-        <main {...stylex.props(styles.main)}>
-          {children}
-        </main>
-        <div {...stylex.props(styles.latest)}>
-          <LatestPosts />
-        </div>
-      </div>
-      <Footer />
-    </div>
-  )
-}

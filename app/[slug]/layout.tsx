@@ -1,9 +1,9 @@
+import { Footer } from "@/components/footer";
 import { Sidebar } from "@/components/sidebar";
 import * as stylex from "@stylexjs/stylex";
-import { colors, spacing } from "../globalTokens.stylex";
 import { allPosts } from "contentlayer/generated";
-import { Footer } from "@/components/footer";
 import { notFound } from "next/navigation";
+import { spacing } from "../globalTokens.stylex";
 
 
 export default function PostPageLayout({

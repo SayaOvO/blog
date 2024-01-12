@@ -114,11 +114,15 @@ const styles = stylex.create({
       default: null,
       ":hover": "rotate(-1turn)"
     },
+    transitionDuration: "1000ms",
     order: {
       "@media (max-width: 768px)": -1,
     },
   },
   section: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     padding: "16px",
     boxShadow: shadows.main,
     borderRadius: "6px",
@@ -134,16 +138,16 @@ const styles = stylex.create({
   social: {
     display: "grid",
     gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    gridRowGap: "6px",
+    gap: "6px",
     marginTop: "16px",
   },
   link: {
     display: "flex",
     alignItems: "center",
     fontSize: text.sm,
-    padding: "4px",
+    padding: spacing.xxs,
     backgroundColor: {
-      ":hover": "#f1f5f9",
+      ":hover": "#dbe5ef",
     },
     gap: 4,
     borderRadius: "6px",

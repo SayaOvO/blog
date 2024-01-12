@@ -1,8 +1,18 @@
-const withMDX = require('@next/mdx')();
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  async rewrites() {
+    return [
+      {
+        source: "/rss",
+        destination: "/atom.xml"
+      },
+      {
+        source: "/rss.xml",
+        destination: "/atom.xml"
+      }
+    ]
+  }
 }
 
 const stylexPlugin = require("@stylexjs/nextjs-plugin");
