@@ -3,9 +3,7 @@ import { allPosts } from "contentlayer/generated";
 import { sortPosts } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export const config = {
-  runtime: "edge"
-}
+export const runtime = "edge";
 
 export function GET() {
   const posts = sortPosts(allPosts);

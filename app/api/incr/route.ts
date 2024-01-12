@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
 const redis = Redis.fromEnv()
+export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   const ip = req.ip;
