@@ -1,9 +1,9 @@
-import { Footer } from "@/components/footer";
-import { Sidebar } from "@/components/sidebar";
-import * as stylex from "@stylexjs/stylex";
-import { allPosts } from "contentlayer/generated";
-import { notFound } from "next/navigation";
-import { spacing } from "../globalTokens.stylex";
+import { Footer } from '@/components/footer';
+import { Sidebar } from '@/components/sidebar';
+import * as stylex from '@stylexjs/stylex';
+import { allPosts } from 'contentlayer/generated';
+import { notFound } from 'next/navigation';
+import { spacing } from '../globalTokens.stylex';
 
 export default function PostPageLayout({
   params,
@@ -33,23 +33,23 @@ export default function PostPageLayout({
 
 const styles = stylex.create({
   container: {
-    display: "grid",
+    display: 'grid',
     gridTemplateColumns: {
-      "@media (max-width: 768px)": "repeat(1, minmax(0, 1fr))",
-      "@media (min-width: 769px)": "repeat(28, minmax(0, 1fr))",
+      '@media (max-width: 768px)': 'repeat(1, minmax(0, 1fr))',
+      '@media (min-width: 769px)': 'repeat(28, minmax(0, 1fr))',
     },
     gap: spacing.md,
     paddingInline: spacing.md,
-    maxWidth: "1576px",
-    marginInline: "auto",
+    maxWidth: '1576px',
+    marginInline: 'auto',
   },
   main: {
     flex: 1,
     paddingBlock: spacing.md,
     gridColumn: {
-      "@media (max-width: 768px)": "span 1",
-      "@media (min-width: 769px) and (max-width: 1024px)": "span 18",
-      "@media (min-width: 1025px)": "span 14",
+      '@media (max-width: 768px)': 'span 1',
+      '@media (min-width: 769px) and (max-width: 1024px)': 'span 18',
+      '@media (min-width: 1025px)': 'span 14',
     },
   },
 });

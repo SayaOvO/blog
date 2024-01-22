@@ -1,11 +1,11 @@
-import * as stylex from "@stylexjs/stylex";
-import { colors, spacing, text } from "../globalTokens.stylex";
-import Link from "next/link";
+import * as stylex from '@stylexjs/stylex';
+import Link from 'next/link';
+import { colors, spacing, text } from '../globalTokens.stylex';
 
 export default function AboutPage() {
   return (
     <div {...stylex.props(styles.container)}>
-     <h1 {...stylex.props(styles.h1)}>关于我</h1>
+      <h1 {...stylex.props(styles.h1)}>关于我</h1>
       <p>大家好，我是 Saya, 欢迎来到我的个人博客!</p>
       <p>
         目前我主要在学习前端相关知识，还比较初级，我会在这里分享我的感想，学到的技术以及发现的一些好玩的东西
@@ -16,9 +16,9 @@ export default function AboutPage() {
         <ul>
           <li>
             <span>
-              <Link href="https://www.github.com/sayaovo/chat-with-you">
+              <Link href='https://www.github.com/sayaovo/chat-with-you'>
                 Chat with you
-              </Link>{" "}
+              </Link>{' '}
               仿写了社交软件 discord，实现了其大部分功能，也就是说你可以通过创建
               Server 和 Channel 来和你的朋友们闲聊甚至视频聊天
             </span>

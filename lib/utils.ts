@@ -16,24 +16,9 @@ export function formatDate(date: Date) {
 }
 
 export function getTags(posts: Post[]) {
-  return posts.reduce((acc: string[], post) => {
-    let tags = acc;
-    post.tags.forEach((tag: string) =>
-      !acc.includes(tag) ? tags.push(tag) : null
-    );
-
-    return tags;
-  }, []);
+  return [...new Set(posts.flatMap((post) => post.tags))];
 }
 
-
 export function getCategories(posts: Post[]) {
-  return posts.reduce((acc: string[], post) => {
-    let categories = acc;
-    post.categories.forEach((category: string) =>
-      !acc.includes(category) ? categories.push(category) : null
-    );
-
-    return categories;
-  }, []);
+  return [...new Set(posts.flatMap((post) => post.categories))];
 }

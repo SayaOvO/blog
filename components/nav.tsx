@@ -19,7 +19,9 @@ export function Nav() {
             <Link href="/friends">友链</Link>
           </li>
           <li>
-            <a href="/atom.xml" target="_blank">订阅</a>
+            <a href="/atom.xml" target="_blank">
+              订阅
+            </a>
           </li>
           <li>
             <Link href="/about">关于</Link>
@@ -29,7 +31,6 @@ export function Nav() {
     </header>
   );
 }
-
 
 const styles = stylex.create({
   header: {
@@ -41,11 +42,11 @@ const styles = stylex.create({
     right: 0,
     background: colors.bg1,
     boxShadow: shadows.bottom,
-    position: "relative"
+    position: "relative",
   },
   h1: {
     fontSize: "1rem",
-    margin: 0
+    margin: 0,
   },
   nav: {
     marginLeft: "auto",
