@@ -1,3 +1,4 @@
+import { HeadingLink } from '@/components/heading-link';
 import { PostCard } from '@/components/post-card';
 import horizon from '@/lib/horizon-bright.json';
 import * as stylex from '@stylexjs/stylex';
@@ -6,7 +7,7 @@ import { allPosts } from 'contentlayer/generated';
 import { Metadata } from 'next';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 import {
   colors,
   globalTokens as $,
@@ -46,6 +47,14 @@ export const generateMetadata = ({
   };
 };
 
+const components = {
+  pre: CustomizeCode,
+  h2: (props: ComponentProps<'h2'>) => <HeadingLink tag='h2' {...props} />,
+  h3: (props: ComponentProps<'h2'>) => <HeadingLink tag='h3' {...props} />,
+  h4: (props: ComponentProps<'h2'>) => <HeadingLink tag='h4' {...props} />,
+  h5: (props: ComponentProps<'h2'>) => <HeadingLink tag='h5' {...props} />,
+  h6: (props: ComponentProps<'h2'>) => <HeadingLink tag='h6' {...props} />,
+};
 export default function PostPage({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
 
@@ -56,12 +65,12 @@ export default function PostPage({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code);
 
   return (
-    <div {...stylex.props(styles.contaner)}>
-      <PostCard post={post} type='post' />
-      <article {...stylex.props(styles.article)}>
-        <MDXContent components={{ pre: CustomizeCode }} />
-      </article>
-    </div>
+      <div {...stylex.props(styles.contaner)}>
+        <PostCard post={post} type='post' />
+        <article {...stylex.props(styles.article)}>
+          <MDXContent components={components} />
+        </article>
+      </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import { Footer } from '@/components/footer';
 import { Sidebar } from '@/components/sidebar';
+import { ActiveAnchorProvider } from '@/contexts/active-anchor';
 import * as stylex from '@stylexjs/stylex';
 import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
@@ -21,13 +22,15 @@ export default function PostPageLayout({
   }
 
   return (
-    <div>
-      <div {...stylex.props(styles.container)}>
-        <Sidebar post={post} />
-        <main {...stylex.props(styles.main)}>{children}</main>
+    <ActiveAnchorProvider>
+      <div>
+        <div {...stylex.props(styles.container)}>
+          <Sidebar post={post} />
+          <main {...stylex.props(styles.main)}>{children}</main>
+        </div>
+        <Footer path={post.url} />
       </div>
-      <Footer path={post.url} />
-    </div>
+    </ActiveAnchorProvider>
   );
 }
 

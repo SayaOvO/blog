@@ -1,5 +1,5 @@
 export type Toc  = ({
   value: string;
-  url: string;
+  slug: string;
   depth: number;
 })[]

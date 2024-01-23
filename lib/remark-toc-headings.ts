@@ -16,7 +16,7 @@ export function generateTocHeadings(markdown: string) {
     const textContent = toString(node).trim();
     toc.push({
       value: textContent,
-      url: "#" + slugger.slug(textContent),
+      slug: slugger.slug(textContent),
       depth: node.depth
     })
   });

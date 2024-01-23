@@ -1,8 +1,12 @@
 'use client';
 
+import Link from 'next/link';
+import scrollIntoView from 'scroll-into-view-if-needed';
+
+import { useActiveAnchor } from '@/contexts/active-anchor';
 import { Toc as TocType } from '@/types/toc';
 import * as stylex from '@stylexjs/stylex';
-import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import { colors, shadows, text } from '../app/globalTokens.stylex';
 
 interface TocProps {
@@ -11,18 +15,44 @@ interface TocProps {
 
 const margins = ['0px', '8px', '16px', '24px', '32px', '40px', '48px'];
 export function Toc({ toc }: TocProps) {
+  const activeLink = useActiveAnchor(toc);
+  const tocRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!activeLink) return;
+    const anchor = tocRef?.current?.querySelector(
+      `a[href="#${activeLink.slug}"]`,
+    );
+
+    if (anchor) {
+      scrollIntoView(anchor, {
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+        scrollMode: 'always',
+        boundary: tocRef.current,
+      });
+    }
+  }, [activeLink]);
+
   return (
-    <div {...stylex.props(styles.toc)}>
+    <div {...stylex.props(styles.toc)} ref={tocRef}>
       <div {...stylex.props(styles.label)}>目录</div>
       <ul {...stylex.props(styles.ul)}>
         {toc.map((heading) => (
           <li
-            key={heading.url}
+            key={heading.slug}
             style={{
               paddingLeft: margins[heading.depth],
             }}
           >
-            <Link href={heading.url} {...stylex.props(styles.link)}>
+            <Link
+              href={`#${heading.slug}`}
+              {...stylex.props(
+                styles.link,
+                heading.slug === activeLink?.slug && styles.activeLink,
+              )}
+            >
               {heading.value}
             </Link>
           </li>
@@ -72,5 +102,8 @@ const styles = stylex.create({
       ':hover': colors.hoverBg,
     },
     borderRadius: '6px',
+  },
+  activeLink: {
+    color: 'rgb(66, 99, 235)',
   },
 });
