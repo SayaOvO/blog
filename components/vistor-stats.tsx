@@ -15,14 +15,12 @@ export function VistorsStats() {
   const { data } = useSWR(apiURL, fetcher);
 
   useEffect(() => {
-    if (process.env.CLOUDFLARE_ENV === 'production') {
-      fetch(apiURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    }
+    fetch(apiURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }, [apiURL]);
 
   return <p {...stylex.props(styles.p)}>All my blog visitors: {data?.views}</p>;
