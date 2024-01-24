@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export function VistorsStats() {
 
   useEffect(() => {
-    fetch("/api/incr", {
+    fetch("https://visitor-worker.sayaovo.workers.dev/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

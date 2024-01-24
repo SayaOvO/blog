@@ -14,7 +14,7 @@ const url = `https://www.github.com/SayaOvO/blog`;
 
 export async function Footer({ path }: FooterProps) {
   let views: number | null;
-  if (process.env.VERCEL_ENV === 'production') {
+  if (process.env.CLOUDFLARE_ENV === 'production') {
     views = await redis.get('page_views');
   } else {
     views = 2345;
@@ -32,6 +32,7 @@ export async function Footer({ path }: FooterProps) {
             width={24}
             height={24}
             {...stylex.props(styles.icon)}
+            unoptimized
           />
           <span {...stylex.props(styles.span)}>Next.js</span>
         </Link>
