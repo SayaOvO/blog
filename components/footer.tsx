@@ -1,25 +1,17 @@
 import * as stylex from '@stylexjs/stylex';
-import { Redis } from '@upstash/redis';
 import { Github, Rss } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { colors, spacing, text } from '../app/globalTokens.stylex';
+import { VistorsStats } from './vistor-stats';
 
 interface FooterProps {
   path?: string;
 }
 
-const redis = Redis.fromEnv();
 const url = `https://www.github.com/SayaOvO/blog`;
 
 export async function Footer({ path }: FooterProps) {
-  let views: number | null;
-  if (process.env.CLOUDFLARE_ENV === 'production') {
-    views = await redis.get('page_views');
-  } else {
-    views = 2345;
-  }
-
   const year = new Date().getFullYear();
   return (
     <footer {...stylex.props(styles.footer)}>
@@ -65,7 +57,7 @@ export async function Footer({ path }: FooterProps) {
           <span {...stylex.props(styles.span)}>RSS</span>
         </a>
       </p>
-      <p {...stylex.props(styles.p)}>All my blog visitors: {views}</p>
+      <VistorsStats />
     </footer>
   );
 }
