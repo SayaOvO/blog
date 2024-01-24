@@ -2,7 +2,15 @@
 const nextConfig = {
   output: "export",
   images: {
-    unoptimized: true
+    loader: "custom",
+    loaderFile: './lib/image-loader.ts',
+    // unoptimized: true
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.perceptpixel.com'
+      }
+    ]
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   // async rewrites() {
