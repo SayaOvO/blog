@@ -1,7 +1,7 @@
 import { allPosts } from "@/.contentlayer/generated";
 import { MainLayout } from "@/components/main-layout";
 import { PostCard } from "@/components/post-card";
-import { sortPosts } from "@/lib/utils";
+import { getCategories, sortPosts } from "@/lib/utils";
 import { Folder } from "lucide-react";
 import { useMemo } from "react";
 import { text } from "../../globalTokens.stylex";
@@ -11,6 +11,14 @@ interface TagPageProps {
   params: {
     category: string;
   };
+}
+
+export const generateStaticParams =async () => {
+  const allCategories = getCategories(allPosts)
+  const categories = allCategories.map((category) => ({
+    category
+  }))
+  return categories;
 }
 
 export default function CategoryPage({ params }: TagPageProps) {

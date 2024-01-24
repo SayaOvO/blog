@@ -11,7 +11,7 @@ export default function FriendPage() {
           <FriendCard
             key={idx}
             name='saya'
-            avatarUrl='/avatar.jpg'
+            avatarUrl='/avatar.png'
             slogan='practices make perfect'
             link='#'
           />

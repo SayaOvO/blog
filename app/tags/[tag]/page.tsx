@@ -1,6 +1,6 @@
 import { MainLayout } from '@/components/main-layout';
 import { PostCard } from '@/components/post-card';
-import { sortPosts } from '@/lib/utils';
+import { getTags, sortPosts } from '@/lib/utils';
 import * as stylex from '@stylexjs/stylex';
 import { allPosts } from 'contentlayer/generated';
 import { Tag } from 'lucide-react';
@@ -11,6 +11,14 @@ interface TagPageProps {
   params: {
     tag: string;
   };
+}
+
+export const generateStaticParams =async () => {
+  const allTags = getTags(allPosts)
+  const tags = allTags.map((tag) => ({
+    tag
+  }))
+  return tags;
 }
 
 export default function TagPage({ params }: TagPageProps) {
