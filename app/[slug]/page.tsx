@@ -83,8 +83,8 @@ function CustomizeCode({ children }: { children?: ReactNode }): ReactNode {
 }
 
 const preStyles = stylex.create({
-  pre: {
-    boxShadow: shadows.main,
+  "pre": {
+    // boxShadow: shadows.main,
     fontFamily: $.fontMono,
     fontSize: text.sm,
   },

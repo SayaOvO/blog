@@ -33,7 +33,7 @@ export const meta: Metadata = {
     type: "website",
     locale: "zh-Hans",
     images: [{
-      url: "/avatar.jpg"
+      url: "/avatar.png"
     }]
   },
   twitter: {
