@@ -7,6 +7,7 @@ export default function AboutPage() {
     <div {...stylex.props(styles.container)}>
       <h1 {...stylex.props(styles.h1)}>关于我</h1>
       <p>大家好，我是 Saya, 欢迎来到我的个人博客!</p>
+      <p>这个博客是用 Next.js 写的，目前静态部署在 Cloudflare pages 上面</p>
       <p>
         目前我主要在学习前端相关知识，还比较初级，我会在这里分享我的感想，学到的技术以及发现的一些好玩的东西
       </p>
