@@ -1,11 +1,11 @@
-import { MainLayout } from '@/components/main-layout';
-import { PostCard } from '@/components/post-card';
-import { getTags, sortPosts } from '@/lib/utils';
+import {MainLayout} from '@/components/main-layout';
+import {PostCard} from '@/components/post-card';
+import {getTags, sortPosts} from '@/lib/utils';
 import * as stylex from '@stylexjs/stylex';
-import { allPosts } from 'contentlayer/generated';
-import { Tag } from 'lucide-react';
-import { useMemo } from 'react';
-import { text } from '../../globalTokens.stylex';
+import {allPosts} from 'contentlayer/generated';
+import {Tag} from 'lucide-react';
+import {useMemo} from 'react';
+import {text} from '../../globalTokens.stylex';
 
 interface TagPageProps {
   params: {
@@ -15,10 +15,9 @@ interface TagPageProps {
 
 export const generateStaticParams =async () => {
   const allTags = getTags(allPosts)
-  const tags = allTags.map((tag) => ({
-    tag
-  }))
-  return tags;
+    return allTags.map((tag) => ({
+      tag
+  }));
 }
 
 export default function TagPage({ params }: TagPageProps) {

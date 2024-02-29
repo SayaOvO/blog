@@ -63,5 +63,7 @@ const styles = stylex.create({
   categories: {
     display: "flex",
     marginBlock: spacing.xxs,
+    gap: "3px",
+    flexWrap: "wrap"
   },
 });

@@ -42,13 +42,17 @@ const styles = stylex.create({
       '@media (min-width: 769px)': 'repeat(28, minmax(0, 1fr))',
     },
     gap: spacing.md,
-    paddingInline: spacing.md,
+    paddingInline: {
+      '@media (min-width: 769px)': spacing.md
+    },
     maxWidth: '1576px',
     marginInline: 'auto',
   },
   main: {
     flex: 1,
-    paddingBlock: spacing.md,
+    paddingBlock: {
+      '@media (min-width: 769px)': spacing.md
+    },
     gridColumn: {
       '@media (max-width: 768px)': 'span 1',
       '@media (min-width: 769px) and (max-width: 1024px)': 'span 18',

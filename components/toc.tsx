@@ -36,7 +36,7 @@ export function Toc({ toc }: TocProps) {
   }, [activeLink]);
 
   return (
-    <div {...stylex.props(styles.toc)} ref={tocRef}>
+    <nav {...stylex.props(styles.toc)} ref={tocRef}>
       <div {...stylex.props(styles.label)}>目录</div>
       <ul {...stylex.props(styles.ul)}>
         {toc.map((heading) => (
@@ -58,7 +58,7 @@ export function Toc({ toc }: TocProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 

@@ -1,10 +1,10 @@
-import { allPosts } from "@/.contentlayer/generated";
-import { MainLayout } from "@/components/main-layout";
-import { PostCard } from "@/components/post-card";
-import { getCategories, sortPosts } from "@/lib/utils";
-import { Folder } from "lucide-react";
-import { useMemo } from "react";
-import { text } from "../../globalTokens.stylex";
+import {allPosts} from "@/.contentlayer/generated";
+import {MainLayout} from "@/components/main-layout";
+import {PostCard} from "@/components/post-card";
+import {getCategories, sortPosts} from "@/lib/utils";
+import {Folder} from "lucide-react";
+import {useMemo} from "react";
+import {text} from "../../globalTokens.stylex";
 import * as stylex from "@stylexjs/stylex";
 
 interface TagPageProps {
@@ -15,10 +15,9 @@ interface TagPageProps {
 
 export const generateStaticParams =async () => {
   const allCategories = getCategories(allPosts)
-  const categories = allCategories.map((category) => ({
-    category
-  }))
-  return categories;
+    return allCategories.map((category) => ({
+      category
+  }));
 }
 
 export default function CategoryPage({ params }: TagPageProps) {

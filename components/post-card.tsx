@@ -57,7 +57,10 @@ const styles = stylex.create({
   },
   bannerContainer: {
     position: "relative",
-    aspectRatio: "3/1",
+    aspectRatio: {
+      '@media (max-width: 768px)': '1/0.45',
+      '@media (min-width: 769px)': '3/1',
+    },
   },
   content: {
     padding: spacing.sm

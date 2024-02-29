@@ -11,7 +11,6 @@ import { ComponentProps, ReactNode } from 'react';
 import {
   colors,
   globalTokens as $,
-  shadows,
   spacing,
   text,
 } from '../globalTokens.stylex';
@@ -65,7 +64,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
   const MDXContent = useMDXComponent(post.body.code);
 
   return (
-      <div {...stylex.props(styles.contaner)}>
+      <div {...stylex.props(styles.container)}>
         <PostCard post={post} type='post' />
         <article {...stylex.props(styles.article)}>
           <MDXContent components={components} />
@@ -91,8 +90,10 @@ const preStyles = stylex.create({
 });
 
 const styles = stylex.create({
-  contaner: {
-    marginTop: spacing.sm,
+  container: {
+    marginTop: {
+      '@media (min-width: 769px)': spacing.sm
+    }
   },
   article: {
     background: colors.bg1,

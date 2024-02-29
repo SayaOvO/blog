@@ -36,7 +36,10 @@ const styles = stylex.create({
       "@media (min-width: 769px)": "repeat(28, minmax(0, 1fr))"
     },
     gap: spacing.md,
-    paddingInline: spacing.md,
+    paddingInline: {
+      '@media (max-width: 768px)': spacing.xs,
+      '@media (min-width: 769px)': spacing.md
+    },
     maxWidth: "1576px",
     marginInline: "auto"
   },
