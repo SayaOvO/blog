@@ -21,7 +21,8 @@ export function useMediaQuery(query: MediaQuery) {
 
   const matches = useSyncExternalStore(
     subscribeMediaQuery,
-    () => getSnapshot(query)
+    () => getSnapshot(query),
+    () => false
   );
   return matches;
 
