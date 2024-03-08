@@ -11,6 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@stylexjs/stylex": "^0.3.0",
     "bright": "^0.8.4",
     "contentlayer": "^0.3.4",

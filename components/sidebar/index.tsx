@@ -6,6 +6,7 @@ import { colors, shadows, spacing, text } from "../../app/globalTokens.stylex";
 import { Toc } from "../toc";
 import { LatestPosts } from "./latest-posts";
 import { TagsAndCategories } from "./tags-categories";
+import { TocContainer } from "../toc-container";
 
 interface SidebarProps {
   post?: Post;
@@ -68,7 +69,9 @@ export function Sidebar({ post }: SidebarProps) {
       </div>
       {post && (
         <div {...stylex.props(styles.toc)}>
-          <Toc toc={post.toc} />
+          <TocContainer>
+            <Toc toc={post.toc} />
+          </TocContainer>
           <div>
             <LatestPosts />
           </div>
@@ -128,6 +131,9 @@ const styles = stylex.create({
     borderRadius: "6px",
     backgroundColor: colors.bg1,
     maxWidth: "350px",
+    marginInline: {
+      "@media (max-width: 768px)": spacing.xxl
+    }
   },
   sticky: {
     position: {
@@ -172,5 +178,6 @@ const styles = stylex.create({
     position: "sticky",
     top: 30,
     marginBlock: "30px",
+    zIndex: 4
   },
 });

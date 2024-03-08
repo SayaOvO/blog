@@ -38,7 +38,7 @@ export function Toc({ toc }: TocProps) {
   return (
     <nav {...stylex.props(styles.toc)} ref={tocRef}>
       <div {...stylex.props(styles.label)}>目录</div>
-      <ul {...stylex.props(styles.ul)}>
+      <ol {...stylex.props(styles.ol)}>
         {toc.map((heading) => (
           <li
             key={heading.slug}
@@ -57,14 +57,16 @@ export function Toc({ toc }: TocProps) {
             </Link>
           </li>
         ))}
-      </ul>
+      </ol>
     </nav>
   );
 }
 
 const styles = stylex.create({
   toc: {
-    height: '120px',
+    height: {
+      '@media (min-width: 769px)': "120px"
+    },
     overflow: 'scroll',
     backgroundColor: colors.bg1,
     borderRadius: '6px',
@@ -73,16 +75,18 @@ const styles = stylex.create({
       height: '.28rem',
       width: '.35rem',
     },
-    marginBlock: '30px',
+    marginBlock: {
+      '@media (min-width: 769px)': '30px'
+    },
     '::-webkit-scrollbar-thumb': {
       backgroundColor: colors.secondary,
       borderRadius: '.5rem',
     },
-    display: {
-      '@media (max-width: 769px)': 'none',
-    },
+    // display: {
+    //   '@media (max-width: 769px)': 'none',
+    // },
   },
-  ul: {
+  ol: {
     listStyleType: 'none',
     padding: 0,
     marginBlock: '8px',

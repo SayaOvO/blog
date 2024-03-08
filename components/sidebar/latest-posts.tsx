@@ -40,6 +40,9 @@ const styles = stylex.create({
     padding: "16px",
     boxShadow: shadows.main,
     borderRadius: "6px",
+    marginInline: {
+      "@media (max-width: 768px)": spacing.xxl
+    }
   },
   p: {
     marginTop: 0,
