@@ -1,19 +1,18 @@
 import { MainLayout } from "@/components/main-layout";
 import { PostCard } from "@/components/post-card";
-import { sortPosts } from "@/lib/utils";
 import * as stylex from "@stylexjs/stylex";
-import { allPosts } from "contentlayer/generated";
-import { useMemo } from "react";
 import { spacing } from "./globalTokens.stylex";
+import { getPostsMeta } from "@/lib/get-posts-meta";
 
-export default function Home() {
-  const posts = useMemo(() => sortPosts(allPosts), [])
+export default async function Home() {
+  const posts = await getPostsMeta();
+
   return (
     <MainLayout>
       <div {...stylex.props(styles.posts)}>
         {
-          posts.map((post, idx) => (
-          <PostCard post={post} key={idx} type="front"/>
+          posts.map((meta, idx) => (
+          <PostCard postMeta={meta} key={idx} type="front"/>
           ))
         }
       </div>

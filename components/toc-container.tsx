@@ -7,6 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { colors } from "../app/globalTokens.stylex"
 
+/* It's ineffective, I think it's better to create a mobile-toc component */
 export function TocContainer({
   children
 }: {

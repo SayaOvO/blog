@@ -1,19 +1,19 @@
 import { formatDate, sortPosts } from "@/lib/utils";
 import * as stylex from "@stylexjs/stylex";
-import { allPosts } from "contentlayer/generated";
 import Link from "next/link";
-import { useMemo } from "react";
 import { colors, shadows, spacing, text } from "../../app/globalTokens.stylex";
+import { getPostsMeta } from "@/lib/get-posts-meta";
 
-export function LatestPosts() {
-  const _posts = useMemo(() => sortPosts(allPosts).slice(0, 4), []);
+export async function LatestPosts() {
+  const posts = await getPostsMeta();
+  const _posts = sortPosts(posts).slice(0, 4);
 
   return (
     <aside {...stylex.props(styles.aside)}>
       <section {...stylex.props(styles.section, styles.sticky)}>
         <div {...stylex.props(styles.label)}>最近文章</div>
         {_posts.map((post) => (
-          <div key={post._id}>
+          <div key={post.url}>
             <time {...stylex.props(styles.time)}>
               {formatDate(new Date(post.date))}
             </time>

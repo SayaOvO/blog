@@ -22,7 +22,6 @@ export function HeadingLink({
     const heading = obRef.current;
     if (!heading) return;
     observer?.observe(heading);
-
     return () => {
       observer?.disconnect();
       setActiveAnchor((f) => {

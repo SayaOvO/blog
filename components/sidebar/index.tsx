@@ -1,4 +1,3 @@
-import { Post } from "@/.contentlayer/generated";
 import * as stylex from "@stylexjs/stylex";
 import { Github, Mail, Send, Twitter } from "lucide-react";
 import Image from "next/image";
@@ -7,9 +6,10 @@ import { Toc } from "../toc";
 import { LatestPosts } from "./latest-posts";
 import { TagsAndCategories } from "./tags-categories";
 import { TocContainer } from "../toc-container";
+import { PostMeta } from "@/types/post-meta";
 
 interface SidebarProps {
-  post?: Post;
+  post?: PostMeta;
 }
 
 export function Sidebar({ post }: SidebarProps) {

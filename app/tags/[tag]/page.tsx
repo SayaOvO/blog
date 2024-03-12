@@ -2,10 +2,10 @@ import {MainLayout} from '@/components/main-layout';
 import {PostCard} from '@/components/post-card';
 import {getTags, sortPosts} from '@/lib/utils';
 import * as stylex from '@stylexjs/stylex';
-import {allPosts} from 'contentlayer/generated';
 import {Tag} from 'lucide-react';
 import {useMemo} from 'react';
 import {text} from '../../globalTokens.stylex';
+import { getPostsMeta } from '@/lib/get-posts-meta';
 
 interface TagPageProps {
   params: {
@@ -14,20 +14,17 @@ interface TagPageProps {
 }
 
 export const generateStaticParams =async () => {
+  const allPosts = await getPostsMeta();
   const allTags = getTags(allPosts)
-    return allTags.map((tag) => ({
-      tag
+  return allTags.map((tag) => ({
+    tag: encodeURI(tag)
   }));
 }
 
-export default function TagPage({ params }: TagPageProps) {
-  const filteredPosts = useMemo(
-    () =>
-      sortPosts(allPosts).filter((post) =>
-        post.tags.includes(decodeURI(params.tag))
-      ),
-    [params.tag],
-  );
+export default async function TagPage({ params }: TagPageProps) {
+  const allPosts = await getPostsMeta();
+  const filteredPosts = sortPosts(allPosts).filter((post) =>
+        post.tags.includes(decodeURI(params.tag)));
 
   return (
     <MainLayout>
@@ -38,7 +35,7 @@ export default function TagPage({ params }: TagPageProps) {
       <h2 {...stylex.props(styles.h2)}>共 {filteredPosts.length} 篇文章</h2>
       <div>
         {filteredPosts.map((post, idx) => (
-          <PostCard post={post} key={idx} type='front' />
+          <PostCard postMeta={post} key={idx} type='front' />
         ))}
       </div>
     </MainLayout>

@@ -28,8 +28,7 @@ const nextConfig = {
 }
 
 const stylexPlugin = require("@stylexjs/nextjs-plugin");
-const { withContentlayer } = require('next-contentlayer');
 
 module.exports = stylexPlugin({
   rootDir: __dirname
-})(withContentlayer(nextConfig));
+})(nextConfig);

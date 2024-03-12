@@ -1,24 +1,25 @@
 import { formatDate } from "@/lib/utils";
 import { colors, shadows, spacing, text } from "../app/globalTokens.stylex";
 import * as stylex from "@stylexjs/stylex";
-import { Post } from "contentlayer/generated";
+import { PostMeta } from "@/types/post-meta"
 import Image from "next/image";
 import Link from "next/link";
 
 interface PostCardProps {
-  post: Post;
+  postMeta: PostMeta;
   type: "front" | "post";
 }
 
-export function PostCard({ post, type }: PostCardProps) {
+export function PostCard({ postMeta, type }: PostCardProps) {
+
   return (
     <div {...stylex.props(styles.container, type === "front" && styles.bottomRadius)}>
-      <Link href={`${post.url}`}>
+      <Link href={`${postMeta.url}`}>
         <div {...stylex.props(styles.bannerContainer)}>
           <Image
             priority
-            src={post.banner}
-            alt={post.title}
+            src={postMeta.banner}
+            alt={postMeta.title}
             fill
             sizes="50 50"
             {...stylex.props(styles.banner)}
@@ -26,17 +27,17 @@ export function PostCard({ post, type }: PostCardProps) {
         </div>
       </Link>
       <article {...stylex.props(styles.content)}>
-        <h2 {...stylex.props(styles.title)}>{post.title}</h2>
+        <h2 {...stylex.props(styles.title)}>{postMeta.title}</h2>
         {type === "front" && (
-          <p {...stylex.props(styles.desc)}>{post.description}</p>
+          <p {...stylex.props(styles.desc)}>{postMeta.description}</p>
         )}
         <footer {...stylex.props(styles.footer)}>
           <span>
-            {formatDate(new Date(post.date))}
-            <span {...stylex.props(styles.category)}>| {post.categories[0]}</span>
+            {formatDate(new Date(postMeta.date))}
+            <span {...stylex.props(styles.category)}>| {postMeta.categories[0]}</span>
           </span>
-          {type === "front" && <Link href={post.url}>继续阅读</Link>}
-          {type === "post" && <span>{post.readingTime.text}</span>}
+          {type === "front" && <Link href={postMeta.url}>继续阅读</Link>}
+          {type === "post" && <span>{postMeta.readTime}</span>}
         </footer>
       </article>
     </div>

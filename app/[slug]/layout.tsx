@@ -2,11 +2,11 @@ import { Footer } from '@/components/footer';
 import { Sidebar } from '@/components/sidebar';
 import { ActiveAnchorProvider } from '@/contexts/active-anchor';
 import * as stylex from '@stylexjs/stylex';
-import { allPosts } from 'contentlayer/generated';
 import { notFound } from 'next/navigation';
 import { spacing } from '../globalTokens.stylex';
+import { getPostMeta } from '@/lib/get-post-meta';
 
-export default function PostPageLayout({
+export default async function PostPageLayout({
   params,
   children,
 }: {
@@ -15,7 +15,7 @@ export default function PostPageLayout({
   };
   children: React.ReactNode;
 }) {
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+  const post = await getPostMeta(params.slug);
 
   if (!post) {
     notFound();

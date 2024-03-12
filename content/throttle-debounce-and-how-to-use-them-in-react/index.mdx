@@ -10,7 +10,6 @@ tags:
   - 技术
 published: true
 ---
-
 在前端的世界里，会出现频繁的调用事件处理函数的情况，这可能既不必要也会造成性能问题，所以我们需要一些技术来减少这些函数被调用的次数。防抖（debounce）和节流（throttle）就是其中最常用的两个工具函数。
 
 ## 防抖和节流的使用场景
@@ -27,7 +26,7 @@ published: true
 内没有新的同一事件被触发，事件处理函数才会开始执行
 
 下面是我的简易实现
-```ts
+```typescript
 function debounce<T extends (...args: any[]) => void>(
   cb: T,
   wait: number

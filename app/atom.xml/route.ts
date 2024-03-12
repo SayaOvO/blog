@@ -1,11 +1,14 @@
 /* https://www.ietf.org/rfc/rfc4287.txt */
-import { allPosts } from "contentlayer/generated";
+
+import { getPostsMeta } from "@/lib/get-posts-meta";
 import { sortPosts } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 
-export function GET() {
-  const posts = sortPosts(allPosts);
+export async function GET() {
+
+  const posts = await getPostsMeta();
+  const metas = sortPosts(posts);
   const headers = {
     "Content-Type": "application/xml",
   };
@@ -23,20 +26,20 @@ export function GET() {
      <generator>
         Next.js
      </generator>
-     ${posts.map(
-       (post) => `<entry>
-            <title type="html">${post.title}</title>
-            <link href="${post.url}" />
+     ${metas.map(
+       (meta) => `<entry>
+            <title type="html">${meta.title}</title>
+            <link href="${meta.url}" />
             <summary>
-              ${post.description}
+              ${meta.description}
             </summary>
             <content type="html">
             <p>
-              ${post.description}
+              ${meta.description}
             </p>
-              <span>请前往 <a>${`https://blog.sayya.moe${post.url}`}</a> 阅读全文</span>
+              <span>请前往 <a>${`https://blog.sayya.moe${meta.url}`}</a> 阅读全文</span>
             </content>
-            <published>${post.date}</published>
+            <published>${meta.date}</published>
           </entry>`
      ).join('')}
    </feed>

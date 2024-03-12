@@ -1,27 +1,30 @@
-import { allPosts } from '@/.contentlayer/generated';
 import { MainLayout } from '@/components/main-layout';
 import { PostArchived } from '@/components/posts-archived';
+import { getPostsMeta } from '@/lib/get-posts-meta';
 import { sortPosts } from '@/lib/utils';
 import { Fragment, useMemo } from 'react';
 
-export default function ArchivePage() {
+export default async function ArchivePage() {
+
+  const allPosts = await getPostsMeta();
+
   const sortedPosts = sortPosts(allPosts);
   let prev_year = 0;
   let _posts = [];
 
-  for (let post of sortedPosts) {
-    const year = new Date(post.date).getFullYear();
+  for (let postMeta of sortedPosts) {
+    const year = new Date(postMeta.date).getFullYear();
     let isAnotherYear = year !== prev_year;
     if (isAnotherYear) {
       prev_year = year;
       _posts.push(
-        <Fragment key={post._id}>
+        <Fragment key={postMeta.url}>
           <h3>{year}</h3>
-          <PostArchived post={post} />
+          <PostArchived postMeta={postMeta} />
         </Fragment>,
       );
     } else {
-      _posts.push(<PostArchived post={post} key={post._id} />);
+      _posts.push(<PostArchived postMeta={postMeta} key={postMeta.url} />);
     }
   }
 

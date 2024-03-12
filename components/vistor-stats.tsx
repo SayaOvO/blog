@@ -21,9 +21,14 @@ export function VistorsStats() {
         'Content-Type': 'application/json',
       },
     });
-  }, [apiURL]);
+  }, []);
 
-  return <p {...stylex.props(styles.p)}>All my blog visitors: {data?.views}</p>;
+  return (
+    <>
+      {data ? <p {...stylex.props(styles.p)}>All my blog visitors: {data.views}</p>
+ : null}
+    </>
+  )
 }
 
 const styles = stylex.create({

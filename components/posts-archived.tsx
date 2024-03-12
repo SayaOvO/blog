@@ -1,12 +1,41 @@
 import * as stylex from "@stylexjs/stylex";
 import { formatDate } from "@/lib/utils";
-import { Post } from "contentlayer/generated";
 import { colors, shadows, spacing, text } from "../app/globalTokens.stylex";
 import Image from "next/image";
 import Link from "next/link";
+import { PostMeta } from "@/types/post-meta";
 
 interface PostArchivedProps {
-  post: Post;
+  postMeta: PostMeta;
+}
+
+const formatter = new Intl.DateTimeFormat("en-US", {
+  month: "numeric",
+  day: "numeric",
+});
+export function PostArchived({ postMeta }: PostArchivedProps) {
+  return (
+    <div {...stylex.props(styles.container)}>
+      <div {...stylex.props(styles.des)}>
+        <time dateTime={postMeta.date} {...stylex.props(styles.time)}>
+          {formatter.format(new Date(postMeta.date)).replace("/", "-")}
+        </time>
+        <p>
+          <Link href={postMeta.url} {...stylex.props(styles.postTitle)}>
+            {postMeta.title}
+          </Link>
+        </p>
+      </div>
+        <Link href={postMeta.url} {...stylex.props(styles.imageContainer)}>
+          <Image
+            src={postMeta.banner}
+            fill
+            alt={postMeta.banner}
+            {...stylex.props(styles.img)}
+          />
+        </Link>
+    </div>
+  );
 }
 
 const styles = stylex.create({
@@ -43,32 +72,3 @@ const styles = stylex.create({
     borderBottomRightRadius: spacing.xs,
   },
 });
-
-const formatter = new Intl.DateTimeFormat("en-US", {
-  month: "numeric",
-  day: "numeric",
-});
-export function PostArchived({ post }: PostArchivedProps) {
-  return (
-    <div {...stylex.props(styles.container)}>
-      <div {...stylex.props(styles.des)}>
-        <time dateTime={post.date} {...stylex.props(styles.time)}>
-          {formatter.format(new Date(post.date)).replace("/", "-")}
-        </time>
-        <p>
-          <Link href={post.url} {...stylex.props(styles.postTitle)}>
-            {post.title}
-          </Link>
-        </p>
-      </div>
-        <Link href={post.url} {...stylex.props(styles.imageContainer)}>
-          <Image
-            src={post.banner}
-            fill
-            alt={post.banner}
-            {...stylex.props(styles.img)}
-          />
-        </Link>
-    </div>
-  );
-}

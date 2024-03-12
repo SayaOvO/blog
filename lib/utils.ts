@@ -1,9 +1,13 @@
-import { Post } from "contentlayer/generated";
+import { compileMDX } from "next-mdx-remote/rsc";
+import fs from 'node:fs';
+import path from 'node:path';
+import readingTime from "reading-time";
+import { generateTocHeadings } from "./remark-toc-headings";
+import { PostMeta } from "@/types/post-meta";
 
-export function sortPosts(posts: Post[]) {
-  return posts.sort(
-    (p1, p2) => new Date(p2.date).getTime() - new Date(p1.date).getTime()
-  );
+export function sortPosts(postsMeta: PostMeta[]) {
+  return postsMeta.sort((p1, p2) =>
+    new Date(p2.date).getTime() - new Date(p1.date).getTime());
 }
 
 export function formatDate(date: Date) {
@@ -15,10 +19,10 @@ export function formatDate(date: Date) {
   return f.format(date).replaceAll("/", "-");
 }
 
-export function getTags(posts: Post[]) {
-  return [...new Set(posts.flatMap((post) => post.tags))];
+export function getTags(metas: PostMeta[]) {
+  return [...new Set(metas.flatMap((meta) => meta.tags))];
 }
 
-export function getCategories(posts: Post[]) {
-  return [...new Set(posts.flatMap((post) => post.categories))];
+export function getCategories(metas: PostMeta[]) {
+  return [...new Set(metas.flatMap((meta) => meta.categories))];
 }
