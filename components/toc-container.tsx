@@ -91,5 +91,7 @@ const styles = stylex.create({
     outline: "2px solid #798fef !important",
     borderRadius: "8px",
     outlineOffset: "1px",
+    position: "relative",
+    zIndex: 8
   }
 })

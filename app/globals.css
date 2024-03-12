@@ -13,3 +13,7 @@
     scroll-margin-top: 0.75em;
   }
 }
+
+pre code {
+    display: block;
+}

@@ -8,7 +8,6 @@ categories:
 tags:
   - 前端
   - 技术
-published: true
 ---
 在前端的世界里，会出现频繁的调用事件处理函数的情况，这可能既不必要也会造成性能问题，所以我们需要一些技术来减少这些函数被调用的次数。防抖（debounce）和节流（throttle）就是其中最常用的两个工具函数。
 
@@ -43,13 +42,12 @@ function debounce<T extends (...args: any[]) => void>(
   }) as T
 }
 ```
-
 这里的实现细节是 debounce 是个函数，其接收一个回调函数 cb 和等待时间 wait 作为参数，并返回防抖版本的 cb 给用户使用。通过闭包来声明一个私有变量来追踪每一次被调用的时间是否在延时时间内，如果在的话则重置计时器
 
 ### 节流
 
 同样作为限制函数执行频率的技术，和防抖不同，节流通过内部的跟踪器来检查规定的时间间隔内这个函数是否已经被调用过了，如果已经被调用过了则跳过该次调用，否则就执行该函数。
-```ts
+```typescript
 function throttle<T extends (...args: any[]) => void>(
   cb: T,
   duration: number
@@ -204,7 +202,7 @@ export default function App() {
 
 这里通过 ref 持有 `sendRequest` 这个函数，而每次更新 value 时，通过 `useEffect` 使得 `ref.current` 的值与 sendRequest 值同步，而每次重新渲染，得到的新的 `sendRequest`，它总是能捕获最新的状态值 `value`。
 我们可以将这部分逻辑提取成一个 hook，方便以后使用
-```ts
+```tsx
 function useDebounce(cb) {
   const ref = useRef();
    useEffect(() => {
@@ -221,7 +219,7 @@ function useDebounce(cb) {
 ```
 
 ### foxact 中的 useDebounceValue
-```useDebounceValue.ts
+```tsx
 import { useEffect, useState, useRef } from 'react';
 
 type NotFunction<T> = T extends Function ? never : T;
@@ -279,7 +277,7 @@ export function useDebouncedValue<T>(
 #### 用法
 
 - 延后渲染某些昂贵的组件，使其不要阻塞其他组件的渲染，造成卡顿
-```ts
+```tsx
 function App() {
   const [text, setText] = useState('');
 
@@ -303,8 +301,12 @@ function App() {
 
 
 - 当 `useDeferredValue` 和 `<Suspense>` 组件一起使用时，如果因为状态值更新导致组件重新 suspense 的话，不会再显示 fallback 组件了，而是等到新数据准备好了直接重渲染，这样在等待阶段 UI 显示的仍旧是旧组件。
-```ts
-import { Suspense, useState, useDeferredValue } from 'react';
+```tsx
+import {
+  Suspense,
+  useState,
+  useDeferredValue
+} from 'react';
 import SearchResults from './SearchResults.js';
 
 export default function App() {

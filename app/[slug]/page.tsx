@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { ComponentProps, ReactNode } from 'react';
 import { compileMDX } from 'next-mdx-remote/rsc'
 import rehypeSlug from "rehype-slug";
+import rehypeShiki from "@shikijs/rehype";
 
 import { getPost } from '@/lib/get-post';
 import {
@@ -21,6 +22,8 @@ import { FrontMatter, PostMeta } from '@/types/post-meta';
 import readingTime from 'reading-time';
 import { getPostsMeta } from '@/lib/get-posts-meta';
 import { getPostMeta } from '@/lib/get-post-meta';
+
+import {  type Element } from "hast"
 
 export const generateStaticParams = async () => {
   const allPostsMeta = await getPostsMeta();
@@ -55,6 +58,7 @@ export const generateMetadata = async ({
 
 const components = {
   pre: (props: ComponentProps<'pre'>) => <CustomizeCode {...props} />,
+  code: (props: ComponentProps<'code'>) => <code {...props} {...stylex.props(preStyles.code)}/>,
   h2: (props: ComponentProps<'h2'>) => <HeadingLink tag='h2' {...props} />,
   h3: (props: ComponentProps<'h2'>) => <HeadingLink tag='h3' {...props} />,
   h4: (props: ComponentProps<'h2'>) => <HeadingLink tag='h4' {...props} />,
@@ -74,7 +78,18 @@ export default async function PostPage({ params }: { params: { slug: string } })
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        rehypePlugins: [rehypeSlug]
+        // @ts-ignore
+        rehypePlugins: [rehypeSlug, [rehypeShiki, {
+          theme: "rose-pine-dawn",
+          transformers: [
+            {
+              pre(node: Element) {
+                // @ts-ignore
+                this.pre.properties["data-language"] = this.options.lang.toUpperCase()
+              }
+            }
+          ]
+        }]]
       }
     }
   })
@@ -97,16 +112,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
   );
 }
 
-function CustomizeCode({ children, className }: { children?: ReactNode, className?: string }): ReactNode {
+function CustomizeCode({ children, ...props }: ComponentProps<'pre'>): ReactNode {
+
   return (
-    <Code
-      lineNumbers
-      theme={horizon}
-      className={className}
-      {...stylex.props(preStyles.pre)}
-    >
+    <pre {...props} {...stylex.props(preStyles.pre)}>
       {children}
-    </Code>
+    </pre>
   );
 }
 
@@ -114,8 +125,28 @@ const preStyles = stylex.create({
   "pre": {
     // boxShadow: shadows.main,
     fontFamily: $.fontMono,
-    fontSize: text.sm,
+    fontSize: "14px",
+    padding: spacing.sm,
+    position: "relative",
+    overflowX: "auto",
+    scrollbarWith: "thin",
+    outline: "none",
+    "::after": {
+      display: "inline-block",
+      content: "attr(data-language)",
+      position: "absolute",
+      right: "1em",
+      top: spacing.sm,
+      opacity: 0.4,
+      fontSize: "1.625em",
+      fontWeight: 800,
+      lineHeight: 1,
+      color: "#850101"
+    }
   },
+  code: {
+    overflowX: "auto"
+  }
 });
 
 const styles = stylex.create({
