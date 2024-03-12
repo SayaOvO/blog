@@ -82,7 +82,6 @@ export default async function PostPage({ params }: { params: { slug: string } })
   const postMeta: PostMeta = {
     ...frontmatter,
     slug: params.slug,
-    toc: generateTocHeadings(source),
     url: `/${params.slug}`,
     readTime: readingTime(source).text
   }

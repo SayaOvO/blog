@@ -27,7 +27,6 @@ export function TocContainer({
     window.addEventListener('scroll', toggle);
   }, [])
 
-
   const toc = useMemo(() => matches ? (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger asChild>

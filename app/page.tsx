@@ -3,9 +3,11 @@ import { PostCard } from "@/components/post-card";
 import * as stylex from "@stylexjs/stylex";
 import { spacing } from "./globalTokens.stylex";
 import { getPostsMeta } from "@/lib/get-posts-meta";
+import { sortPosts } from "@/lib/utils";
 
 export default async function Home() {
   const posts = await getPostsMeta();
+  const _posts = sortPosts(posts);
 
   return (
     <MainLayout>

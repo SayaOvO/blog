@@ -5,7 +5,6 @@ import {fromMarkdown} from 'mdast-util-from-markdown'
 import { toString } from 'mdast-util-to-string'
 import { Toc } from '@/types/toc';
 
-const slugger = new GithubSlugger()
 
 export function generateTocHeadings(markdown: string) {
   const toc: Toc = [];
@@ -13,6 +12,7 @@ export function generateTocHeadings(markdown: string) {
   const tree = fromMarkdown(markdown);
 
   visit(tree, 'heading', (node: Heading) => {
+    const slugger = new GithubSlugger()
     const textContent = toString(node).trim();
     toc.push({
       value: textContent,
