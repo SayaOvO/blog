@@ -17,7 +17,7 @@ export const generateStaticParams =async () => {
   const allPosts = await getPostsMeta();
   const allTags = getTags(allPosts)
   return allTags.map((tag) => ({
-    tag: encodeURI(tag)
+    tag
   }));
 }
 

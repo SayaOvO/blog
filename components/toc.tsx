@@ -18,8 +18,6 @@ export function Toc({ toc }: TocProps) {
   const activeLink = useActiveAnchor(toc);
   const tocRef = useRef<HTMLDivElement>(null);
 
-  console.log("Active Link:", activeLink);
-
   useEffect(() => {
     if (!activeLink) return;
     const anchor = tocRef?.current?.querySelector(

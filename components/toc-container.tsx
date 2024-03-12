@@ -19,15 +19,12 @@ export function TocContainer({
 
   const matches = useMediaQuery("(max-width: 768px)")
 
-
   useEffect(() => {
     const toggle = () => {
       setShowDescription(window.scrollY < 200)
     };
 
     window.addEventListener('scroll', toggle);
-
-
   }, [])
 
 

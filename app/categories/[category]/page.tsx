@@ -16,7 +16,7 @@ export const generateStaticParams =async () => {
   const allMetas = await getPostsMeta();
   const allCategories = getCategories(allMetas)
     return allCategories.map((category) => ({
-      category: encodeURI(category)
+      category
   }));
 }
 
