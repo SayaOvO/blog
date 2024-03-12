@@ -4,7 +4,7 @@ export type PostMeta = FrontMatter & {
     slug: string;
     url: string;
     readTime: string;
-    toc?: Toc
+    toc: Toc
 }
 
 export interface FrontMatter {

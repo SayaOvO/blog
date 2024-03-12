@@ -83,7 +83,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
     ...frontmatter,
     slug: params.slug,
     url: `/${params.slug}`,
-    readTime: readingTime(source).text
+    readTime: readingTime(source).text,
+    toc: generateTocHeadings(source),
   }
 
   return (
