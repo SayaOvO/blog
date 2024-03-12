@@ -2,7 +2,6 @@ import { HeadingLink } from '@/components/heading-link';
 import { PostCard } from '@/components/post-card';
 import horizon from '@/lib/horizon-bright.json';
 import * as stylex from '@stylexjs/stylex';
-import { Code } from 'bright';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ComponentProps, ReactNode } from 'react';
