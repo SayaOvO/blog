@@ -7,4 +7,5 @@ interface ImageProps {
 export default function PerceptLoader({ src, width }: ImageProps) {
   const params = [`w_${width}`, 'f_auto', 'q_auto:good'];
   return `https://img.perceptpixel.com/saya-avbpshga/${params.join(',')}/${src}`;
+
 }

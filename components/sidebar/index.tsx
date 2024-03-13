@@ -21,7 +21,7 @@ export function Sidebar({ post }: SidebarProps) {
             <p>Saya</p>
             <div>来到你身边的博客</div>
             <Image
-              src="/avatar.png"
+              src="/avatar.webp"
               alt="Saya's avatar"
               width={96}
               height={96}

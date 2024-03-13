@@ -1,6 +1,5 @@
 import { HeadingLink } from '@/components/heading-link';
 import { PostCard } from '@/components/post-card';
-import horizon from '@/lib/horizon-bright.json';
 import * as stylex from '@stylexjs/stylex';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -21,7 +20,6 @@ import { FrontMatter, PostMeta } from '@/types/post-meta';
 import readingTime from 'reading-time';
 import { getPostsMeta } from '@/lib/get-posts-meta';
 import { getPostMeta } from '@/lib/get-post-meta';
-
 import {  type Element } from "hast"
 
 export const generateStaticParams = async () => {
