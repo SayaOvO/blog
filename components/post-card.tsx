@@ -18,16 +18,13 @@ export function PostCard({ postMeta, type }: PostCardProps) {
     <div {...stylex.props(styles.container, type === "front" && styles.bottomRadius)}>
       <Link href={`${postMeta.url}`}>
         <div {...stylex.props(styles.bannerContainer)}>
-          <picture>
-            <source srcSet={`${IMAGE_URL}/${postMeta.banner}`} type="image/webp" />
             <Image
               priority
-              src={postMeta.banner.replace(".webp", ".png")}
+              src={postMeta.banner}
               alt={postMeta.title}
               fill
               {...stylex.props(styles.banner)}
             />
-          </picture>
         </div>
       </Link>
       <article {...stylex.props(styles.content)}>

@@ -139,7 +139,7 @@ const preStyles = stylex.create({
       fontWeight: 800,
       lineHeight: 1,
       color: "#850101"
-    }
+    },
   },
   code: {
     overflowX: "auto"
