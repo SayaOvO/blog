@@ -105,7 +105,7 @@ export const getCompiledPost = async (slug: string): Promise<Post> => {
 };
 
 export const sortPosts = (posts: Post[]): Post[] => {
-  return posts.toSorted(
+  return posts.sort(
     (p1, p2) => Date.parse(p2.meta.date) - Date.parse(p1.meta.date),
   );
 };
