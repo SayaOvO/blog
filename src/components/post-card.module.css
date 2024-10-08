@@ -1,0 +1,13 @@
+.banner-container {
+  position: relative;
+  aspect-ratio: 3 / 1;
+
+  & > img {
+    object-fit: cover;
+  }
+}
+
+.footer {
+  display: flex;
+  gap: 4px;
+}

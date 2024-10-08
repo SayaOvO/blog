@@ -1,0 +1,340 @@
+---
+title: 节流，防抖以及它们在React中的应用
+description: 本文介绍了防抖和节流这两个优化手段，以及它们的实现原理，最后重点以防抖函数为例，说明了它们在 React 项目中的合理使用方式
+banner: /post-02-banner.webp
+date: 2024-01-29
+categories:
+  - JS
+tags:
+  - 前端
+  - 技术
+---
+在前端的世界里，有时会出现短时间内频繁的调用事件处理函数的情况，这可能既不必要同时也会造成性能问题，所以我们需要使用一些技术来减少这些函数被调用的次数。防抖（debounce [^1]）和节流（throttle）就是其中最常用的两个工具函数。
+
+## 防抖和节流的使用场景
+
+
+当我们实现一个实时搜索功能时，最直接的办法是监听输入事件得到当前搜索框的值，然后使用该值向后端发送请求。举个例子来说，如果你想要搜索 `React`，依照这个逻辑，会依次以 _R_, _Re_, _Rea_, _Reac_, _React_ 为值向后端 API 进行请求。如果按照正常用户一分钟 60 个字来估计，意味着一秒钟就会发送 5/6 个请求，这不太合理，也会降低网页的性能，影响用户体验。在这种情况下，一个简单的解决方式是，等一会直到用户停止输入再进行请求。这就是防抖（debounce)
+
+监听某个元素的 scroll 事件，然后再进行一些有关位置的计算并不少见，如果这个计算十分昂贵，而滚动事件的频繁触发会极大的影响性能，一个控制方式是确保一定时间内，只进行一次计算，这也就是节流 （throttle）了。
+
+
+## 什么是防抖和节流
+
+### 防抖
+
+作为帮助函数跳过执行的手段，防抖采用的方式是当事件处理函数被调用时，会启动一个计时器，设定一个延迟时间，如果在延迟时间内，同一个事件被触发，则原先的计时器会被清除并重置定时器。只有在延时时间
+内没有新的同一事件被触发，事件处理函数才会开始执行
+
+下面是我的简易实现
+```typescript
+function debounce<T extends (...args: any[]) => void>(
+  cb: T,
+  wait: number
+): T {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  return ((...args) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      cb(...args);
+      timeout = null;
+    }, wait);
+  }) as T
+}
+```
+这里的实现细节是 debounce 是个函数，其接收一个回调函数 cb 和等待时间 wait 作为参数，并返回防抖版本的 cb 给用户使用。通过闭包来声明一个私有变量来追踪每一次被调用的时间是否在延时时间内，如果在的话则重置计时器
+
+### 节流
+
+同样作为限制函数执行频率的技术，和防抖不同，节流通过内部的跟踪器来检查规定的时间间隔内这个函数是否已经被调用过了，如果已经被调用过了则跳过该次调用，否则就执行该函数。
+```typescript
+function throttle<T extends (...args: any[]) => void>(
+  cb: T,
+  duration: number
+): T {
+  let shouldWait: boolean = false;
+
+  return ((...args) => {
+    if (!shouldWait) {
+      shouldWait = true;
+      cb(...args);
+      setTimeout(() => {
+        shouldWait = false;
+      }, duration);
+    }
+  }) as T
+}
+```
+
+节流同样是接收一个回调函数和持续时间，返回另外一个函数供用户使用，只是内部的限制手段不同。
+
+值得一提的是，上面两个实现都是我自己写的简易版本，如果想要更精确和复杂的防抖函数和节流函数，可以直接使用 lodash 里面的版本。
+
+## Debounce 在 React 上面的应用
+
+React 应用同样也会有使用防抖函数来降低函数被调用次数的需要，那么有什么特别之处需要注意的呢？原因在于 React 的重新渲染。
+
+React 的组件常常是受控组件，所谓的受控组件就是这个组件（通常为 input 等表单元素），它的状态完全是由外部控制（通常为声明这个元素的 React 组件中的状态值）。反之则为非受控组件。举个例子
+```tsx
+import { ChangeEvent, useState } from "react";
+import { debounce } from "./debounce";
+
+export default function App() {
+  const [query, setQuery] = useState("");
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    setQuery(e.target.value);
+    console.log(e.target.value);
+  };
+
+  return (
+    <input
+      value={query}
+      placeholder="enter something"
+      onChange={debounce(handleChange, 500)}
+    />
+  );
+}
+```
+
+很显然，这里的 input 元素的值是 App 组件状态值 `query` 所控制着的。然而这里的例子中的 input 的值永远不会更新，原因在于 `handleChange` 的调用被延后了，无法更新 `query` 这个状态值，其绑定的 input 的 value 值也会保持不变，组件也不会重新渲染。
+
+所以不能 debounce 整个 handleChange，那么将发送请求这部分逻辑提取出来呢。如下
+```tsx
+const sendRequest = (value) => {
+  console.log("Send request...", value)
+}
+const debouncedSendRequest = debounce(sendRequest);
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setQuery(e.target.value);
+  debouncedSendRequest(e.target.value)
+};
+```
+
+你会发现，虽然 input 的值会更新，但是 debounce 仍然无法正确工作，sendRequest 仍旧每次都被调用，仅仅只是将调用延后 500ms 了。这是为什么呢？原因就在于本文这部分开头所说的重新渲染。众所周知，React 的一个特性就是更新组件的状态会导致组件重新渲染，生成新的 ui，这里的重新渲染可以粗略理解为再一次调用组件函数。这样的话，每一次渲染时 `sendRequest`  和 `debouncedSendRequest` 都是“全新”的，因此每次组件渲染时，每个 debouncedSendRequest 都有一个新的跟踪器，它们互相不知道内部的情况，自然都没有能够控制函数是否执行的效果。
+
+那么将这两个函数移动到组件外部呢，在这个简单的例子中是可行的，但是这类函数常常需要读写属于组件内部的变量（state 或者 props 等），被移出组件外的函数是无法读取它们的。
+
+### 通过 useMemo 和 useCallback
+
+React 提供了用来两个记忆化的钩子函数，`useMemo` 和 `useCallback`，如果你了解的话，它们刚好适合上面的情况，防止重新渲染时生成新的值，下面是例子
+```tsx
+import { ChangeEvent, useState } from "react";
+import { debounce } from "./debounce";
+
+export default function App() {
+
+  const [query, setQuery] = useState("");
+  const sendRequest = useCallback((value: string) => {
+    // send input field
+    console.log("Sending...", value);
+  }, [])
+
+  const debouncedCb = useMemo(() =>
+    debounce(sendRequest), sendRequest);
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    setQuery(e.target.value);
+    debouncedCb(e.target.value);
+  };
+
+  return (
+    <input
+      value={query}
+      placeholder="enter something"
+      onChange={debounce(handleChange, 500)}
+    />
+  );
+}
+```
+
+这个办法是比较符合我的直觉的，美中不足的是你需要将 `input` 最新的值传入被记忆化的 debouncedCb 函数中，如果这比较困难，或者这个函数需要读取其他数据就会稍微有点麻烦。那么直接读取 React 的状态呢
+```tsx
+const [query, setQuery] = useState("");
+const sendRequest = useCallback(() => {
+    // send input field
+  console.log("Sending...", value);
+}, [])
+```
+
+同样不行，原因是当组件初次渲染时，发送逻辑函数内部获取的 `value` 会被“冻住”，且因为记忆化无法获取更新的状态值。
+
+### 使用 useRef
+```tsx
+import { ChangeEvent, useState, useRef } from "react";
+import { debounce } from "./debounce";
+
+export default function App() {
+  const [query, setQuery] = useState("");
+  const sendRequest = () => {
+    console.log("Send...", query);
+  }
+
+  const ref = useRef(sendRequest);
+
+  useEffect(() => {
+   ref.current = sendRequest
+  }, [value])
+
+  const debouncedCb = useMemo(() => {
+    const cb = () => ref?.current();
+    return debounce(cb, 500);
+  }, []);
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    setQuery(e.target.value);
+    debouncedCb();
+  };
+
+  return (
+    <input
+      value={query}
+      placeholder="enter something"
+      onChange={debounce(handleChange, 500)}
+    />
+  );
+}
+```
+
+这里通过 ref 持有 `sendRequest` 这个函数，而每次更新 value 时，通过 `useEffect` 使得 `ref.current` 的值与 sendRequest 值同步，而每次重新渲染，得到的新的 `sendRequest`，它总是能捕获最新的状态值 `value`。
+我们可以将这部分逻辑提取成一个 hook，方便以后使用
+```tsx
+function useDebounce(cb) {
+  const ref = useRef();
+   useEffect(() => {
+   ref.current = cb;
+  }, [cb])
+
+  const debouncedCb = useMemo(() => {
+    const cb = () => ref?.current();
+    return debounce(cb, 500);
+  }, []);
+
+  return debouncedCb;
+}
+```
+
+### foxact 中的 useDebounceValue
+```tsx
+import { useEffect, useState, useRef } from 'react';
+
+type NotFunction<T> = T extends Function ? never : T;
+
+export function useDebouncedValue<T>(
+  value: NotFunction<T>,
+  wait: number,
+  leading = false
+) {
+
+  const [outputValue, setOutputValue] = useState(value);
+  const leadingRef = useRef(true);
+
+  useEffect(() => {
+    let isCancelled = false;
+    let timeout: number | null = null;
+
+
+    if (!isCancelled) {
+      if (leadingRef.current && leading) {
+        leadingRef.current = false;
+        setOutputValue(value);
+      } else {
+        timeout = window.setTimeout(() => {
+          leadingRef.current = true;
+          setOutputValue(value);
+        }, wait);
+      }
+    }
+
+    return () => {
+      isCancelled = true;
+      if (timeout) {
+        window.clearTimeout(timeout);
+      }
+    };
+  }, [value, leading, wait]);
+
+  return outputValue;
+}
+```
+
+这个 hook 来自 sukka 的 [foxact](https://foxact.skk.moe/use-debounced-value)。和前面使用传统的 debounce 不同，这个 hook
+直接控制输出的值，而巧妙之处在于通过 `useEffect` 返回的清理函数来重置定时器，如果传入的 `value` 值更改，在 `useEffect` 的回调函数再一次执行之前会先运行清理函数，而清理函数则会检查这次调用是否已经有计时器计时（即是否在延时内），如果有则清除这个计时器
+
+
+### useDeferredValue
+
+这是官方在 React 18 推出的 hook，虽然不是防抖和节流在 React 上的应用，但是功能有些相近，同样作为优化手段，特此在这说明一下
+
+根据文档，useDeferredValue 这个 hook 是用来延后更新部分 UI。 简单来说，useDeferredValue 接受一个值，初始渲染时，这个函数会返回这个值，等到如果因为这个值更新导致的重新渲染，React 会先使用旧值进行渲染，即函数返回旧值，等这次渲染完毕后，则开始在后台用新值重新渲染。而这次重新渲染是可打断的。这样使用
+`useDeferredValue` 返回的值渲染的那部分 UI 就被延后更新了。
+
+
+#### 用法
+
+- 延后渲染某些昂贵的组件，使其不要阻塞其他组件的渲染，造成卡顿[^3]
+```tsx
+function App() {
+  const [text, setText] = useState('');
+
+  const deferredText = useDeferredValue(text);
+  return (
+    <>
+      <input
+        value={value}
+        onChange={useCallback((e) =>
+          setText(e.target.value))}
+      />
+      {/* SlowList should wrapped in `memo` */}
+      <SlowList text={deferredText} />
+    </>
+  )
+}
+```
+
+在这个例子里，用户在 input 输入会导致 App 组件重新渲染，但是 SlowList 的重渲染延后了，这样的好处是不会因为 SlowList 的渲染花费时间比较多而导致整个 App 组件卡顿。而且 `Slowlist` 的第二次延后的渲染是可以被打断的，
+在这个例子中，在 SlowList 重渲染过程中，如果用户继续输入，则 React 中断这次重渲染，选择更新 App 组件，然后继续上次中断的渲染，最后因为这次渲染使用了过期的 props 而被抛弃，这有点像 `debounce` 的效果了
+
+
+- 当 `useDeferredValue` 和 `<Suspense>` 组件一起使用时，如果因为状态值更新导致组件重新 suspense 的话，不会再显示 fallback 组件了，而是等到新数据准备好了直接重渲染，这样在等待阶段 UI 显示的仍旧是旧组件。
+```tsx
+import {
+  Suspense,
+  useState,
+  useDeferredValue
+} from 'react';
+import SearchResults from './SearchResults.js';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  return (
+    <>
+      <label>
+        Search albums:
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+      </label>
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <SearchResults query={deferredQuery} />
+      </Suspense>
+    </>
+  );
+}
+```
+
+这个例子中，假设用户输入从 `a` 到 `ab`，那么在 `ab` 的搜索结果出来之前，页面仍会保留着 query 为 `a` 的结果，而不是 `<h2>Loading</h2>`
+
+
+这个钩子函数和上面其他的应用特别是 sukka 的 useDebouncedValue 区别之处也在 foxact 的文档有说明 [^2]
+
+[^1]: This is a footnote
+[^2]: This is second footnote

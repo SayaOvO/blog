@@ -1,0 +1,45 @@
+.theme-toggle {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  touch-action: manipulation;
+  outline-offset: 5px;
+  height: 24px;
+}
+
+.dark .theme-toggle {
+  background-color: white;
+}
+
+.moon,
+.sun,
+.sun-beams {
+  transform-origin: center center;
+}
+
+.sun,
+.moon {
+  transition: transform 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25);
+}
+
+.sun-beams {
+  transition:
+    opacity 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25),
+    transform 0.5s cubic-bezier(0.5, 1.5, 0.75, 1.25);
+}
+
+.dark .sun-moon > .sun {
+  transform: scale(1.75);
+}
+
+.dark .sun-moon > .sun-beams {
+  opacity: 0;
+  transform: rotateZ(-25deg);
+}
+
+.dark .sun-moon > .moon > circle {
+  transform: translateX(-7px);
+}

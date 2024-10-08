@@ -1,0 +1,12 @@
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 10;
+  display: block;
+  padding: 0.5em;
+  line-height: 1;
+  background: hsl(var(--clr-accent));
+  border-radius: 5px;
+  color: hsl(var(--clr-hover));
+}

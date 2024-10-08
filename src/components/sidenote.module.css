@@ -1,0 +1,8 @@
+.aside {
+  grid-column: 3 / 4 !important;
+  align-self: flex-start;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / 2;
+  }
+}
