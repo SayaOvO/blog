@@ -4,9 +4,12 @@ import { useCallback, useState, memo, useLayoutEffect } from "react";
 import styles from "./theme-toggle.module.css";
 
 export const ThemeToggle = memo(() => {
-  const [theme, setTheme] = useState(
-    window?.localStorage.getItem("theme") ?? "light",
-  );
+  const localTheme =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("theme")
+      : undefined;
+
+  const [theme, setTheme] = useState(localTheme ?? "light");
 
   const switchTheme = useCallback(() => {
     setTheme((theme) => {
