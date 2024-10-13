@@ -47,9 +47,4 @@ export const metaData: Metadata = {
       ],
     },
   },
-  appleWebApp: {
-    capable: true,
-    title: "首页 | Saya 的个人博客",
-    statusBarStyle: "default",
-  },
 };

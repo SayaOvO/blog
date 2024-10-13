@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { type RefObject } from "react";
+import React, { memo, type RefObject } from "react";
 import { Github, Send, Twitter, Mail } from "lucide-react";
 
 import styles from "./author-card.module.css";
 import { useAvatar } from "@/contexts/avatar-context";
 
-export const AuthorInfo = () => {
+export const AuthorInfo = memo(() => {
   const { avatarRef, isSticky } = useAvatar();
   return (
     <section
@@ -34,25 +34,25 @@ export const AuthorInfo = () => {
         className={styles["social-links"]}
       >
         <li>
-          <a href="#">
+          <a href="#" target="_blank">
             <Github size={18} />
             Github
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" target="_blank">
             <Send size={18} />
             Telegram
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="mailto:me@sayya.moe" target="_blank">
             <Mail size={18} />
             Email
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" target="_blank">
             <Twitter size={18} />
             Twitter
           </a>
@@ -60,4 +60,8 @@ export const AuthorInfo = () => {
       </ul>
     </section>
   );
-};
+});
+
+if (process.env.NODE_ENV === "development") {
+  AuthorInfo.displayName = "Author";
+}

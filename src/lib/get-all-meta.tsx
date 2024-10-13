@@ -1,5 +1,5 @@
 import path from "node:path";
-import fs from "fs";
+import fs from "node:fs";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeSlug from "./rehype-slug";
 import { FrontMatter, type Post } from "@/types/meta";

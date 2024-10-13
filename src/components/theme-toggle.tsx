@@ -1,16 +1,19 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, memo, useLayoutEffect } from "react";
 import styles from "./theme-toggle.module.css";
 
-export const ThemeToggle = () => {
-  const [theme, setTheme] = useState("light");
+export const ThemeToggle = memo(() => {
+  const [theme, setTheme] = useState(
+    window.localStorage.getItem("theme") ?? "light",
+  );
 
   const switchTheme = useCallback(() => {
     setTheme((theme) => {
       const nextTheme = theme === "light" ? "dark" : "light";
       document.documentElement.classList.remove(theme);
       document.documentElement.classList.add(nextTheme);
+      window.localStorage.setItem("theme", nextTheme);
       return nextTheme;
     });
   }, []);
@@ -22,6 +25,16 @@ export const ThemeToggle = () => {
     }
     document.startViewTransition(() => switchTheme());
   }, [switchTheme]);
+
+  // sync theme
+  useLayoutEffect(() => {
+    if (window.localStorage.getItem("theme")) {
+      document.documentElement.className = "";
+      document.documentElement.classList.add(
+        window.localStorage.getItem("theme")!,
+      );
+    }
+  }, []);
 
   return (
     <div className={styles[theme]}>
@@ -59,4 +72,8 @@ export const ThemeToggle = () => {
       </button>
     </div>
   );
-};
+});
+
+if (process.env.NODE_ENV === "development") {
+  ThemeToggle.displayName = "ThemeToggle";
+}
