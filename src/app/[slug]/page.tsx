@@ -2,6 +2,7 @@ import { PostCard } from "@/components/post-card";
 import { getAllMeta, getCompiledPost } from "@/lib/get-all-meta";
 import { notFound } from "next/navigation";
 import styles from "./post-page.module.css";
+import { MobileToc } from "@/components/mobile-toc";
 
 const PostPage = async ({ params }: { params: { slug: string } }) => {
   try {
@@ -13,6 +14,7 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
           <PostCard meta={meta} />
         </section>
         <article className={`${styles.contents} flow`}>{content}</article>
+        <MobileToc toc={meta.toc} />
       </main>
     );
   } catch {

@@ -330,6 +330,9 @@ h6 {
   .left-side .latest-posts {
     display: block;
   }
+  .left-side > nav {
+    display: none;
+  }
 }
 
 /* shiki dark theme */
