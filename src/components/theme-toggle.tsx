@@ -5,7 +5,7 @@ import styles from "./theme-toggle.module.css";
 
 export const ThemeToggle = memo(() => {
   const [theme, setTheme] = useState(
-    window.localStorage.getItem("theme") ?? "light",
+    window?.localStorage.getItem("theme") ?? "light",
   );
 
   const switchTheme = useCallback(() => {
