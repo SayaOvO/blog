@@ -1,44 +1,37 @@
 "use client";
 
-import { useCallback, useState, memo, useLayoutEffect } from "react";
+import { useState, memo, useEffect } from "react";
 import styles from "./theme-toggle.module.css";
 
 export const ThemeToggle = memo(() => {
-  const localTheme =
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("theme")
-      : undefined;
+  const [theme, setTheme] = useState(global.window?.__theme || "light");
+  const [isMounted, setIsMounted] = useState(false);
 
-  const [theme, setTheme] = useState(localTheme ?? "light");
+  const isDark = theme === "dark";
 
-  const switchTheme = useCallback(() => {
-    setTheme((theme) => {
-      const nextTheme = theme === "light" ? "dark" : "light";
-      document.documentElement.classList.remove(theme);
-      document.documentElement.classList.add(nextTheme);
-      window.localStorage.setItem("theme", nextTheme);
-      return nextTheme;
-    });
-  }, []);
-
-  const toggle = useCallback(() => {
+  const switchTheme = () => {
+    global.window?.__setPreferredTheme(isDark ? "light" : "dark");
+  };
+  const toggle = () => {
     if (!document.startViewTransition) {
       switchTheme();
       return;
     }
     document.startViewTransition(() => switchTheme());
-  }, [switchTheme]);
+  };
 
-  // sync theme
-  useLayoutEffect(() => {
-    if (window.localStorage.getItem("theme")) {
-      document.documentElement.className = "";
-      document.documentElement.classList.add(
-        window.localStorage.getItem("theme")!,
-      );
-    }
+  useEffect(() => {
+    global.window.__onThemeChange = setTheme;
   }, []);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // opt-out ssr
+  if (!isMounted) {
+    return <div className={styles.placeholder}>loading...</div>;
+  }
   return (
     <div className={styles[theme]}>
       <button className={styles["theme-toggle"]} onClick={toggle}>

@@ -7,6 +7,7 @@ import { AvatarProvider } from "@/contexts/avatar-context";
 import { BackToTop } from "@/components/back-to-top";
 import { metaData } from "@/lib/metadata";
 import { ActiveAnchorProvider } from "@/contexts/active-anchor";
+import ThemeScript from "@/lib/ThemeScript";
 
 export const metadata: Metadata = metaData;
 
@@ -16,13 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh" className="light">
+    <html lang="zh" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <AvatarProvider>
         <ActiveAnchorProvider>
           <body>
             <Nav />
-            {children}
             <BackToTop />
+            {children}
           </body>
         </ActiveAnchorProvider>
       </AvatarProvider>

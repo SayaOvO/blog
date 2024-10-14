@@ -1,3 +1,10 @@
+.dark,
+.light,
+.placeholder {
+  width: 24px;
+  height: 24px;
+}
+
 .theme-toggle {
   border: 0;
   background: transparent;
