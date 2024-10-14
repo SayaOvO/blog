@@ -77,15 +77,6 @@ export const getCompiledPost = async (slug: string): Promise<Post> => {
                   },
                 },
               ],
-              // transformers: [
-              //   {
-              //     pre(node: Element) {
-              //       node.properties["data-language"] =
-              //         // @ts-expect-error need to figure out the type of `this`
-              //         this.options.language.toUpperCase();
-              //     },
-              //   },
-              // ],
             },
           ],
         ],

@@ -21,11 +21,6 @@ export const Nav = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="link" data-content="订阅">
-                订阅
-              </a>
-            </li>
-            <li>
               <a href="#" className="link" data-content="关于">
                 关于
               </a>
@@ -34,7 +29,13 @@ export const Nav = () => {
 
           <ul className="flex push-right">
             <li>
-              <Rss className="icon" />
+              <a
+                href="
+                /atom"
+                target="_blank"
+              >
+                <Rss className="icon" />
+              </a>
             </li>
             <li>
               <ThemeToggle />
