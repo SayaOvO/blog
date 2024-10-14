@@ -1,4 +1,4 @@
-import { getAllMeta, getCompiledPost, getPost } from "@/lib/get-all-meta";
+import { getAllMeta, getPost } from "@/lib/get-all-meta";
 import { Feed } from "feed";
 import { NextResponse } from "next/server";
 
@@ -25,7 +25,7 @@ export async function GET() {
       email: "me.sayya.moe",
     },
   });
-  posts.forEach(({ meta, content }) => {
+  posts.forEach(({ meta }) => {
     feed.addItem({
       title: meta.title,
       id: meta.slug,
