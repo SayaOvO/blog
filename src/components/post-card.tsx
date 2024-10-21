@@ -18,7 +18,7 @@ export const PostCard = ({ meta }: PostCardProps) => {
               priority
               className="br-2"
               fill
-              sizes="(max-width: 768px) 420px, (max-width: 1376px) 50vw"
+              sizes="(max-width: 768px) 80vw, (max-width: 1376px) 50vw"
             />
           </div>
         </Link>

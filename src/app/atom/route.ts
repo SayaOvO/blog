@@ -12,7 +12,7 @@ export async function GET() {
     description: "此 RSS 提供本人博客文章:)",
     id: "https://blog.sayya.moe",
     link: "https://blog.sayya.moe",
-    language: "zh",
+    language: "en",
     favicon: "https://blog.sayya.moe/favicon.ico",
     copyright: "All rights reserved 2024, Saya",
     updated: new Date(posts[0].meta.date),
@@ -22,7 +22,7 @@ export async function GET() {
     },
     author: {
       name: "Saya",
-      email: "me.sayya.moe",
+      email: "me@sayya.moe",
     },
   });
   posts.forEach(({ meta }) => {

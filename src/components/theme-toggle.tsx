@@ -30,7 +30,7 @@ export const ThemeToggle = memo(() => {
 
   // opt-out ssr
   if (!isMounted) {
-    return <div className={styles.placeholder}>loading...</div>;
+    return <div className={styles.placeholder}>Loading...</div>;
   }
   return (
     <div className={styles[theme]}>
