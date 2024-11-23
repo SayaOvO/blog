@@ -60,6 +60,7 @@
   ol {
     margin: revert;
     list-style-type: revert;
+    margin-left: 1.5em;
     & > li {
       margin-bottom: 0.5em;
     }

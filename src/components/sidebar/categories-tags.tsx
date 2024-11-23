@@ -1,3 +1,5 @@
+import Link from "next/link";
+import styles from "./categories-tags.module.css";
 interface CategoriesAndTagsProps {
   categoriesTags: {
     categories: string[];
@@ -13,14 +15,18 @@ export const CategoriesAndTags = ({
       <h3 className="section-label">标签</h3>
       <ul className="flex">
         {categoriesTags.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
+          <li key={tag} className={styles.item}>
+            <Link href={`/tags/${tag}`}>{tag}</Link>
+          </li>
         ))}
       </ul>
       <h3 className="section-label">分类</h3>
 
       <ul className="flex">
         {categoriesTags.categories.map((cat) => (
-          <li key={cat}>{cat}</li>
+          <li key={cat} className={styles.item}>
+            <Link href={`/categories/${cat}`}>{cat}</Link>
+          </li>
         ))}
       </ul>
     </section>

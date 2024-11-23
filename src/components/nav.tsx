@@ -7,9 +7,11 @@ export const Nav = () => {
   return (
     <header className={`p-4 shadow-md ${styles.header}`}>
       <div className="container flex nav-container navbar-container">
-        <Link href="/">Saya&apos;s blog</Link>
+        <Link href="/" className={styles.logo}>
+          Saya&apos;s blog
+        </Link>
         <nav className="flex main-nav">
-          <ul className="flex">
+          <ul className={styles.links}>
             <li>
               <a href="#" className="link" data-content="归档">
                 归档

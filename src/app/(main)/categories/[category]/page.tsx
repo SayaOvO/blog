@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { Folder } from "lucide-react";
 
 import { getAllMeta } from "@/lib/get-all-meta";
 import { getCategoriesTags } from "@/lib/get-categories-tags";
-import styles from "../../page-shared.module.css";
+import styles from "../../category-tag.module.css";
 import { PostPreview } from "@/components/post-preview";
 
 export default async function CategoryPage({

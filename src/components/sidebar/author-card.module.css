@@ -3,40 +3,20 @@
     order: 2;
   }
 }
+
 .info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   writing-mode: vertical-rl;
   gap: 1em;
 }
 
 .avatar-container {
-  position: relative;
-  transform: translateX(0px);
-  transition: all ease 275ms;
-  z-index: 2;
-
   > img {
     width: 96px;
     height: 96px;
-  }
-  &.sticky {
-    position: fixed;
-    top: 16px;
-    transform: translateX(-40px);
-
-    @media (max-width: 1024px) {
-      transform: translateX(0px);
-    }
-
-    @media (max-width: 768px) {
-      transform: translateX(-82px);
-    }
-    > img {
-      width: 32px;
-      height: 32px;
-    }
   }
 }
 

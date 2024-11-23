@@ -10,10 +10,12 @@
   --ff-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --sakiko: 216 45.45% 63.33%;
+  --mortis: 120 14% 53%;
 }
 
 :root.light {
-  --sakiko: 216 45.45% 63.33%;
+  --clr-primary: var(--sakiko);
   --clr-accent: 240 100% 99%;
   --clr-text: 217 15% 39%;
   --clr-text-sec: 231 10% 86%;
@@ -25,7 +27,7 @@
 }
 
 :root.dark {
-  --mortis: 120 14% 53%;
+  --clr-primary: var(--mortis);
   --clr-accent: 223 3% 23%;
   --clr-text: 217 5% 60%;
   --clr-text-sec: 231 10% 30%;
@@ -88,10 +90,12 @@ body {
   font-size: 16px;
   background-color: hsl(var(--clr-bg));
   color: hsl(var(--clr-text));
+  text-rendering: optimizeSpeed;
 }
 
 *::selection {
-  background: hsl(var(--sakiko));
+  background: hsl(var(--clr-primary));
+  color: black;
 }
 
 h1,
@@ -224,7 +228,7 @@ h6 {
 }
 
 .nav-container {
-  gap: 4rem;
+  gap: 3rem;
 }
 
 .main-layout-container {

@@ -5,6 +5,10 @@
   & > img {
     object-fit: cover;
   }
+
+  @media (max-width: 768px) {
+    aspect-ratio: 1 / 0.48;
+  }
 }
 
 .footer {
