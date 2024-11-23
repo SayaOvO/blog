@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 12px;
+  margin-top: 2em;
+
+  & > h1 {
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.container {
+  margin-block: 1.5em;
+  padding-inline: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2em;
+
+  @media (max-width: 412px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.link {
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: hsl(var(--clr-primary));
+    text-underline-offset: 4px;
+  }
+}
