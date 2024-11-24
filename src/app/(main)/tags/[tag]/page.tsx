@@ -13,7 +13,7 @@ export default async function TagPage({
   };
 }) {
   const posts = await getAllMeta();
-  const tag = decodeURI(params.tag);
+  const { tag } = params;
   const tagPosts = posts.filter((post) => post.meta.tags.includes(tag));
   return (
     <main className="main-area">
@@ -41,6 +41,6 @@ export async function generateStaticParams() {
   const { tags } = getCategoriesTags(posts);
 
   return tags.map((tag) => ({
-    tag: encodeURI(tag),
+    tag,
   }));
 }

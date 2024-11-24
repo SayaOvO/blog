@@ -11,7 +11,7 @@ export default async function CategoryPage({
   params: { category: string };
 }) {
   const posts = await getAllMeta();
-  const category = decodeURI(params.category);
+  const { category } = params;
   const _posts = posts.filter((post) =>
     post.meta.categories.includes(category),
   );
@@ -41,6 +41,6 @@ export async function generateStaticParams() {
   const posts = await getAllMeta();
   const { categories } = getCategoriesTags(posts);
   return categories.map((cat) => ({
-    category: encodeURI(cat),
+    category,
   }));
 }
