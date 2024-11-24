@@ -7,26 +7,28 @@ import { BackToTop } from "@/components/back-to-top";
 import { metaData } from "@/lib/metadata";
 import { ActiveAnchorProvider } from "@/contexts/active-anchor";
 import ThemeScript from "@/lib/ThemeScript";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = metaData;
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang="zh" suppressHydrationWarning>
-			<head>
-				<ThemeScript />
-			</head>
-			<ActiveAnchorProvider>
-				<body>
-					<Nav />
-					<BackToTop />
-					{children}
-				</body>
-			</ActiveAnchorProvider>
-		</html>
-	);
+  return (
+    <html lang="zh" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <ActiveAnchorProvider>
+        <body>
+          <Nav />
+          <BackToTop />
+          {children}
+          <Footer />
+        </body>
+      </ActiveAnchorProvider>
+    </html>
+  );
 }

@@ -1,0 +1,21 @@
+.container {
+  & > * + * {
+    margin-top: 4px;
+  }
+  margin-block: 2rem;
+}
+.item {
+  text-align: center;
+  line-height: 1;
+
+  & > a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.text {
+  font-size: 15px;
+}
