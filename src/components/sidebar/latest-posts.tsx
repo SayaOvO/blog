@@ -13,7 +13,7 @@ export const LatestPost = async () => {
         <div key={post.meta.title}>
           <time className="fs-sm">{post.meta.date}</time>
           <Link
-            href={post.meta.slug}
+            href={`/${post.meta.slug}`}
             data-content={post.meta.title}
             className={`${styles["post-title"]} link colored`}
           >

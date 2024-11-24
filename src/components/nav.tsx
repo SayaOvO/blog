@@ -13,9 +13,9 @@ export const Nav = () => {
         <nav className="flex main-nav">
           <ul className={styles.links}>
             <li>
-              <a href="#" className="link" data-content="归档">
+              <Link href="/archives" className="link" data-content="归档">
                 归档
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="link" data-content="分享">

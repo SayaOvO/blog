@@ -13,7 +13,6 @@ export default async function CategoryPage({
   const posts = await getAllMeta();
   const { category: categoryURI } = await params;
   const category = decodeURI(categoryURI);
-  console.log("posts:", posts);
   const _posts = posts.filter((post) =>
     post.meta.categories.includes(category),
   );
