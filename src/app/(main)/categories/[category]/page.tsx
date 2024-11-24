@@ -41,6 +41,6 @@ export async function generateStaticParams() {
   const posts = await getAllMeta();
   const { categories } = getCategoriesTags(posts);
   return categories.map((cat) => ({
-    category,
+    category: cat,
   }));
 }
