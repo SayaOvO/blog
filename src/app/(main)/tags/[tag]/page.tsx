@@ -41,6 +41,6 @@ export async function generateStaticParams() {
   const { tags } = getCategoriesTags(posts);
 
   return tags.map((tag) => ({
-    tag: encodeURI(tag),
+    tag,
   }));
 }
