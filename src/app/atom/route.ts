@@ -38,3 +38,5 @@ export async function GET() {
   });
   return new NextResponse(feed.atom1(), { headers });
 }
+
+export const dynamic = "force-static";

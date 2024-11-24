@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import styles from "./post-page.module.css";
 import { MobileToc } from "@/components/mobile-toc";
 
-const PostPage = async ({ params }: { params: { slug: string } }) => {
+const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   try {
-    const { content, meta } = await getCompiledPost(params.slug);
+    const { slug } = await params;
+    const { content, meta } = await getCompiledPost(slug);
 
     return (
       <main className="main-area post-main">
@@ -32,10 +33,11 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) => {
   const posts = await getAllMeta();
-  const post = posts.find((post) => post.meta.slug === params.slug);
+  const { slug } = await params;
+  const post = posts.find((post) => post.meta.slug === slug);
 
   if (!post) {
     notFound();

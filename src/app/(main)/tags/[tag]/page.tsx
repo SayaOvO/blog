@@ -8,12 +8,13 @@ import { PostPreview } from "@/components/post-preview";
 export default async function TagPage({
   params,
 }: {
-  params: {
+  params: Promise<{
     tag: string;
-  };
+  }>;
 }) {
   const posts = await getAllMeta();
-  const tag = decodeURI(params.tag);
+  const { tag: tagURI } = await params;
+  const tag = decodeURI(tagURI);
   const tagPosts = posts.filter((post) => post.meta.tags.includes(tag));
   return (
     <main className="main-area">

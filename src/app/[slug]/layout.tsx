@@ -5,10 +5,11 @@ const PostPageLayout = async ({
   params,
   children,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
   children: React.ReactNode;
 }) => {
-  const post = await getCompiledPost(params.slug);
+  const { slug } = await params;
+  const post = await getCompiledPost(slug);
   return (
     <div className="container main-layout-container post-page">
       <Sidebar post={post} />

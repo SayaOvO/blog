@@ -8,10 +8,12 @@ import { PostPreview } from "@/components/post-preview";
 export default async function CategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
   const posts = await getAllMeta();
-  const category = decodeURI(params.category);
+  const { category: categoryURI } = await params;
+  const category = decodeURI(categoryURI);
+  console.log("posts:", posts);
   const _posts = posts.filter((post) =>
     post.meta.categories.includes(category),
   );
