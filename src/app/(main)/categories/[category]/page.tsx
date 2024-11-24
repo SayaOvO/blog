@@ -52,6 +52,6 @@ export const generateMetadata = async ({
 }) => {
   const { category } = await params;
   return {
-    title: `分类-${category}`,
+    title: `分类-${decodeURI(category)}`,
   };
 };
