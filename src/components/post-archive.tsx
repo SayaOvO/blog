@@ -25,6 +25,7 @@ export function PostArchive({ post }: { post: Post }) {
           alt={post.meta.title}
           fill
           className={styles.image}
+          sizes="(max-width:768px) 80vw, (max-width:1376px) 25vw"
         />
       </div>
     </article>

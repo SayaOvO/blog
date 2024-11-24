@@ -45,3 +45,13 @@ export async function generateStaticParams() {
     category: cat,
   }));
 }
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) => {
+  const { category } = await params;
+  return {
+    title: `分类-${category}`,
+  };
+};

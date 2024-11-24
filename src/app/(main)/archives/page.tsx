@@ -1,4 +1,5 @@
 import { getAllMeta } from "@/lib/get-all-meta";
+import type { Metadata } from "next";
 import styles from "./archive.module.css";
 import { Fragment } from "react";
 import { PostArchive } from "@/components/post-archive";
@@ -28,3 +29,7 @@ export default async function ArchivePage() {
     </main>
   );
 }
+
+export const metadata: Metadata = {
+  title: "归档",
+};

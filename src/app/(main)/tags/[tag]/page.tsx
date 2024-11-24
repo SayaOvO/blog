@@ -45,3 +45,14 @@ export async function generateStaticParams() {
     tag,
   }));
 }
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}) => {
+  const { tag } = await params;
+  return {
+    title: `标签-${tag}`,
+  };
+};
