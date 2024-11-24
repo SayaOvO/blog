@@ -13,7 +13,7 @@ export default async function TagPage({
   };
 }) {
   const posts = await getAllMeta();
-  const tag = encodeURI(params.tag);
+  const tag = decodeURI(params.tag);
   const tagPosts = posts.filter((post) => post.meta.tags.includes(tag));
   return (
     <main className="main-area">
