@@ -18,14 +18,14 @@ export const Nav = () => {
               </Link>
             </li>
             <li>
-              <a href="#" className="link" data-content="分享">
+              <Link href="#" className="link" data-content="分享">
                 分享
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about" className="link" data-content="关于">
+              <Link href="/about" className="link" data-content="关于">
                 关于
-              </a>
+              </Link>
             </li>
           </ul>
 
