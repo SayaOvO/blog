@@ -163,6 +163,10 @@ h6 {
   margin-left: auto;
 }
 
+.push-down {
+  margin-bottom: 1em;
+}
+
 .br-1 {
   border-radius: 0.4em;
 }

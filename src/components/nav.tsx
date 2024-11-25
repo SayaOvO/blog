@@ -18,7 +18,7 @@ export const Nav = () => {
               </Link>
             </li>
             <li>
-              <Link href="#" className="link" data-content="分享">
+              <Link href="/sharing" className="link" data-content="分享">
                 分享
               </Link>
             </li>
