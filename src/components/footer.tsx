@@ -16,7 +16,7 @@ export function Footer() {
         </Link>
       </p>
       <p className={styles.item}>
-        <Link href="https://www.nextjs.org" target="_blank">
+        <Link href="https://github.com/sayaOvO/blog" target="_blank">
           <span className={styles.text}>Open sourced on</span>
           <Github size={12} />
           <span className={styles.text}>Github</span>

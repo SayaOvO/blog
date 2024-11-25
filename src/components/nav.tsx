@@ -23,7 +23,7 @@ export const Nav = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="link" data-content="关于">
+              <a href="/about" className="link" data-content="关于">
                 关于
               </a>
             </li>

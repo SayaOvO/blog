@@ -53,6 +53,6 @@ export const generateMetadata = async ({
 }) => {
   const { tag } = await params;
   return {
-    title: `标签-${decodeURI(tag)}`,
+    title: `标签 - ${decodeURI(tag)}`,
   };
 };
