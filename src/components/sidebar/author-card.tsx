@@ -17,7 +17,7 @@ export const AuthorInfo = memo(() => {
             src="me.webp"
             alt=""
             className={styles.avatar}
-            priority
+            fetchPriority="high"
             width={96}
             height={96}
           />

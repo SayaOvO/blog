@@ -15,7 +15,7 @@ export const PostCard = ({ meta }: PostCardProps) => {
             <Image
               src={meta.banner}
               alt="post banner"
-              priority
+              fetchPriority="high"
               className="br-2"
               fill
               sizes="(max-width: 768px) 80vw, (max-width: 1376px) 50vw"
