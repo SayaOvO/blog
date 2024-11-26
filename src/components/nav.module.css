@@ -24,20 +24,9 @@
     transform-origin: right;
     transform: rotate(0deg) translateY(0);
   }
+}
 
-  & > img {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    transform: rotate(0deg) translateY(0);
-
-    & img {
-      border-radius: 50%;
-      display: block;
-    }
-  }
+.links {
+  display: flex;
+  gap: 2em;
 }

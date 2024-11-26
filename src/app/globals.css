@@ -325,26 +325,6 @@ h6 {
   }
 }
 
-@media (max-width: 1024px) {
-  .main-layout-container {
-    grid-template-columns: 1fr 2fr;
-    gap: 2em;
-    grid-template-areas: "left-side main";
-
-    .right-side {
-      display: none;
-    }
-    .latest-posts {
-      display: block;
-      order: 2;
-    }
-
-    &.post-page {
-      grid-template-areas: "left-side main";
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .main-layout-container,
   .main-layout-container.post-page {

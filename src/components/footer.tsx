@@ -24,7 +24,7 @@ export function Footer() {
       </p>
       <p className={styles.item}>
         <span className={styles.text}>&copy; Saya </span>
-        <CurrentYear defaultYear={2024} />
+        <CurrentYear />
       </p>
       <VisitorsStats />
     </footer>
