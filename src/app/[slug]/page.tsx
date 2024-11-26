@@ -12,7 +12,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     return (
       <main className="main-area post-main">
         <section>
-          <PostCard meta={meta} />
+          <PostCard meta={meta} fetchPriority={true} />
         </section>
         <article className={`${styles.contents} flow`}>{content}</article>
         <MobileToc toc={meta.toc} />

@@ -5,8 +5,9 @@ import Link from "next/link";
 
 interface PostCardProps {
   meta: FrontMatter & { slug: string; readingTime: string };
+  fetchPriority: boolean;
 }
-export const PostCard = ({ meta }: PostCardProps) => {
+export const PostCard = ({ meta, fetchPriority }: PostCardProps) => {
   return (
     <article>
       <header>
@@ -15,7 +16,8 @@ export const PostCard = ({ meta }: PostCardProps) => {
             <Image
               src={meta.banner}
               alt="post banner"
-              fetchPriority="high"
+              priority={fetchPriority ? true : undefined}
+              fetchPriority={fetchPriority ? "high" : undefined}
               className="br-2"
               fill
               sizes="(max-width: 768px) 80vw, (max-width: 1376px) 50vw"

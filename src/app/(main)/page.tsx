@@ -5,9 +5,9 @@ export default async function Home() {
   const posts = await getAllMeta();
   return (
     <main className="main-area flow">
-      {posts.map(({ meta }) => (
+      {posts.map(({ meta }, index) => (
         <section key={meta.title} className="bg-accent shadow-md br-2">
-          <PostCard meta={meta} />
+          <PostCard meta={meta} fetchPriority={index === 0} />
         </section>
       ))}
     </main>
