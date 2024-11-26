@@ -31,4 +31,8 @@
     text-decoration-style: double;
     text-decoration-line: underline;
   }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 }
