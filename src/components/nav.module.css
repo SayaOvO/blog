@@ -24,6 +24,22 @@
     transform-origin: right;
     transform: rotate(0deg) translateY(0);
   }
+
+  & > img {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    transform: rotate(0deg) translateY(0);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    & > img {
+      border-radius: 50%;
+      display: block;
+    }
+  }
 }
 
 .links {

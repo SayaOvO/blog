@@ -2,12 +2,14 @@ import Link from "next/link";
 import styles from "./nav.module.css";
 import { Rss } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import Image from "next/image";
 
 export const Nav = () => {
   return (
     <header className={`p-4 shadow-md ${styles.header}`}>
       <div className="container flex nav-container navbar-container">
         <Link href="/" className={styles.logo}>
+          <Image src="me.webp" alt="" width={28} height={28} />
           Saya&apos;s blog
         </Link>
         <nav className="flex main-nav">

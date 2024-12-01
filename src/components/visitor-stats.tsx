@@ -2,12 +2,12 @@
 import useSWR from "swr";
 import { useEffect } from "react";
 import styles from "./visitor-stats.module.css";
-
+const apiURL = "https://visitor-worker.sayaovo.workers.dev/";
 const fetcher = async (url: string) => {
   const res = await fetch(url);
   return res.json();
 };
-const apiURL = "https://visitor-worker.sayaovo.workers.dev/";
+
 export function VisitorsStats() {
   const { data } = useSWR(apiURL, fetcher);
 

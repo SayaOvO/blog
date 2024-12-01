@@ -5,7 +5,7 @@ import { Github } from "lucide-react";
 import { CurrentYear } from "./current-year";
 import { VisitorsStats } from "./visitor-stats";
 
-export function Footer() {
+export async function Footer() {
   return (
     <footer className={styles.container}>
       <p className={styles.item}>
@@ -24,7 +24,7 @@ export function Footer() {
       </p>
       <p className={styles.item}>
         <span className={styles.text}>&copy; Saya </span>
-        <CurrentYear />
+        <CurrentYear defaultYear={2024} />
       </p>
       <VisitorsStats />
     </footer>
